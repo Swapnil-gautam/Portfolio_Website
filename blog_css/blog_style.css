@@ -89,8 +89,20 @@ a {
 /* NAVBAR */
 
 header {
-  background: #008489;
+  /* background: #008489; */
+  background: linear-gradient(-45deg, #4f447c, #2bdab9);
   height: 66px;
+  background-size: 400%;
+  animation: bg-animation 15s infinite alternate;
+}
+
+@keyframes bg-animation{
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
 }
 
 header * {
@@ -255,6 +267,11 @@ header .menu-toggle {
   padding: 20px 50px;
   font-size: 1.1em;
   border-radius: 5px;
+}
+
+.content .main-content img{
+  width: 100%;
+  height: auto;
 }
 
 .content .main-content.single .post-title {
