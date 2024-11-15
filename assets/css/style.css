@@ -618,7 +618,7 @@ section {
   border-left: 1px solid #37b3ed;
 }
 
-.portfolio .portfolio-wrap:hover::before {
+/* .portfolio .portfolio-wrap:hover::before {
   top: 0;
   left: 0;
   right: 0;
@@ -629,7 +629,37 @@ section {
 .portfolio .portfolio-wrap:hover .portfolio-links {
   opacity: 1;
   bottom: 0;
+} */
+
+/* New styles for the project title */
+.portfolio .portfolio-wrap .project-title {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  transform: 0;
+  background: rgba(20, 157, 221, 0.75); /* Using your existing blue color */
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all ease-in-out 0.3s;
+  z-index: 3;
+  pointer-events: none;
+  text-align: center;
 }
+
+/* Modify hover effects */
+.portfolio .portfolio-wrap:hover::before {
+  opacity: 1;
+}
+
+.portfolio .portfolio-wrap:hover .project-title {
+  opacity: 1;
+}
+
 
 /*--------------------------------------------------------------
 # Services

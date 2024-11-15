@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+  <!-- Custom Styling -->
+  <link rel="stylesheet" href="blog_css/blog_style.css">
+
+  <title>ANPR</title>
+</head>
+
+<body>
+  <!-- Facebook Page Plugin SDK -->
+  <!-- <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=285071545181837&autoLogAppEvents=1">
+  </script> -->
+
+  <header>
+    <div class="logo">
+      <h1 class="logo-text">Swapnil Gautam</h1>
+    </div>
+    <i class="fa fa-bars menu-toggle"></i>
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+      <!-- <li><a href="#">Sign Up</a></li>
+      <li><a href="#">Login</a></li> -->
+    </ul>
+  </header>
+
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
+
+    <!-- Content -->
+    <div class="content clearfix">
+
+      <!-- Main Content Wrapper -->
+      <div class="main-content-wrapper">
+        <div class="main-content single">
+          <h1 class="post-title">Automatic Number Plate Recognition System (ANPR)</h1>
+          
+          <div class="post-content">
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione modi error rerum possimus animi! Eos!
+            </p> -->
+
+            <h2 class="Problem-statement">Problem statement:</h1>
+            <p>With an increased number of vehicles passing by the SEZ, 
+              there is a need for a vehicle identification mechanism that is effective, affordable, and efficient. 
+              Manual data logging is a slow, tedious, and primitive method. 
+              Since the system is manual, there is always some scope of connivance by security personnel. 
+              There are also increased insecurity challenges including smuggling and terrorism which call for increased surveillance.</p>
+            <h2 class="Approch">Approach:</h1>
+            <p>Earlier, a primitive manual approach is used for the registration of new vehicles entering the SEZ, 
+              which involves writing down the details of the vehicles and providing each vehicle with a gate pass. 
+              This process of writing is tedious and time-consuming and is prone to inaccurate recordings, furthermore, 
+              the backup and sharing of this vehicle information are difficult because the data is saved in hard copy. 
+              The earlier approach often leads to traffic congestion and chaos on the gateway that hinders the productivity of SEZ industries.
+              </p>
+            <p>With the rapid increase in cars and transportation systems which make it impossible to be fully managed and monitored by humans, 
+              we propose an Automatic number plate recognition system. 
+              Automatic number plate recognition (ANPR) is an image processing technology that uses a number (license) plate to identify the vehicle. 
+              The objective is to design an efficient automatic authorized vehicle identification system by using the vehicle number plate. 
+              The developed system first detects the vehicle and then captures the vehicle image. The vehicle number plate region is extracted using the image segmentation in an image. 
+              This data is then transferred to the central hub. All the data will be stored in a MongoDB server that can be accessed by the officials whenever required. 
+              If an intruder or non-registered vehicle tries to enter the zone it updates the data and informs the authority about the intrusion
+            </p>
+            <h2 class="Solution">Solution:</h1>
+            <p>Automatic Number Plate Recognition (ANPR) is a computer vision system capable of reading 
+              vehicle number plates and detecting characters within it with zero human intervention.
+            </p>
+            <p>When a vehicle crosses the security gates, 
+              The system first detects the vehicle and then captures the vehicle image, 
+              and using some deep learning magic, 
+              it detects the number plate of the vehicle. 
+            </p>
+            <img src="assets/img/ANPR_pipeline.png" alt="ANPR pipeline"> 
+            <p>The ANPR pipeline consists of 2 major object detection algorithm 
+            </p>
+            <ol>
+              <li>YOLO-tiny for number plate detection </li>
+              <img src="assets/img/YOLO-tiny.png" alt="YOLO-tiny"> 
+              <li>YOLOv3 as OCR to extract characters from the number palet.</li>
+              <img src="assets/img/YOLOv3.png" alt="YOLOv3"> 
+            </ol> 
+
+            <p> We used a pre-trained YOLO-tiny model for vehicle and number plate detection. 
+              The Model takes the camera feed as input and provides the 4 coordinates of the bounding box generated over the number plate. 
+              Using these coordinates the system crops the number plate image from the live stream frame. 
+              The cropped image is then pre-processed with various image processing techniques to make it ready to feed into the OCR
+            </p>
+
+            <p> We trained a custom OCR using YOLOv3 architecture and our ingenious dataset. 
+              We tried to use pre-trained OCRs like Pytesseract and EasyOCR but they gave a very low accuracy score. 
+              Thus we trained our own OCR according to our requirements. 
+              We choose YOLOv3 because it is good at detecting small characters which match our requirements. 
+              The model takes preprocessed number plate as input and outputs the prediction score and bounding box coordinates of all the characters it recognized in the number plate image. 
+              The recognized characters are checked for threshold confidence of 90%, 
+              the characters that pass the threshold are then arranged into a string according to their center point coordinates. 
+              The string is then passed from a Regex to make sure that the string is following the Indian Number Plate formate.
+            </p>
+            <p> The final generated string of number plate characters is then passed to the MongoDB server with a timestamp, 
+              gate number, and in-out state. 
+              The server allows the user to get all the timing history of any number plate. 
+              Also, the database is linked with the earlier database that can help us get the id associated with the number plate, 
+              If no ID is associated with the number plate then it triggers a warning to the user.
+            </p>
+            <h2 class="Challenges">Challenges:</h1>
+            <p>The need for ANPR in KASEZ is strong. However, the solution may not be as clear. 
+              ANPR in countries such as Vietnam, Australia, and Italy, which have fairly standardized license plates, 
+              have accuracy levels often exceeding 90%. India, however, is quite different. 
+              The variations of Indian license plates make it difficult for an ANPR system to accurately identify and decode the license plate. 
+              Also, the lack of a dataset is a big issue, 
+              no model can be accurate with insufficient data
+              </p>
+            <p>Moreover, cameras deployed in India tend to be of lower quality, 
+              thereby compounding the ability of ANPR engines to accurately decode the license plate. 
+              The low-cost cameras have limited visual coverage, are equipped with less acute motion and object detection sensors, 
+              and contain limited night vision capabilities. 
+              These three factors increase the number of blind spots and the occurrence of blurry images. ANPR for India is particularly difficult, 
+              and accuracy rates seldom exceed 70% from our internal analysis of our and competitive ANPR providers.
+              </p>
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, nisi.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione modi error rerum possimus animi! Eos!
+            </p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam placeat at molestias vitae! Ipsa
+              repudiandae praesentium nobis nesciunt, iusto pariatur tenetur commodi! Iste sequi placeat dolores nulla,
+              expedita voluptas officiis.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, facere iste! Ex quia hic recusandae
+              optio velit ad consectetur totam sed sunt quasi voluptates, sequi molestias alias sapiente iste asperiores
+              nostrum est voluptatem quae earum accusantium. Totam dolorem possimus rem!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, nisi.</p> -->
+          </div>
+
+        </div>
+      </div>
+      <!-- // Main Content -->
+
+      <!-- Sidebar -->
+      <div class="sidebar single">
+
+        <!-- <div class="fb-page" data-href="https://web.facebook.com/codingpoets/" data-small-header="false"
+          data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+          <blockquote cite="https://web.facebook.com/codingpoets/" class="fb-xfbml-parse-ignore"><a
+              href="https://web.facebook.com/codingpoets/">Coding Poets</a></blockquote>
+        </div> -->
+
+
+        <div class="section popular">
+          <h2 class="section-title">Suggestion</h2>
+
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title">
+              <h4>Smart Switch</h4>
+            </a>
+          </div>
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title">
+              <h4>Face Recognition Attendance System</h4>
+            </a>
+          </div>
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title">
+              <h4>Smart Box</h4>
+            </a>
+          </div>
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title">
+              <h4>Yolo-Flask API</h4>
+            </a>
+          </div>
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title">
+              <h4>Robotic Arm</h4>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Content</h2>
+          <ul>
+            <li><a href="#Problem-Statement">Problem Statement</a></li>
+            <li><a href="#Approach">Approach</a></li>
+            <li><a href="#Challenges">Challenges</a></li>
+            <li><a href="#Solution">Solution</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- // Sidebar -->
+
+    </div>
+    <!-- // Content -->
+
+  </div>
+  <!-- // Page Wrapper -->
+
+  <!-- footer -->
+  <!-- <div class="footer">
+    <div class="footer-content">
+
+      <div class="footer-section about">
+        <h1 class="logo-text"><span>Awa</span>Inspires</h1>
+        <p>
+          AwaInspires is a fictional blog conceived for the purpose of a tutorial on YouTube.
+          However, Awa has a blog called pieceofadvice.org where he writes truly inspiring stuff.
+        </p>
+        <div class="contact">
+          <span><i class="fas fa-phone"></i> &nbsp; 123-456-789</span>
+          <span><i class="fas fa-envelope"></i> &nbsp; info@awainspires.com</span>
+        </div>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section links">
+        <h2>Quick Links</h2>
+        <br>
+        <ul>
+          <a href="#">
+            <li>Events</li>
+          </a>
+          <a href="#">
+            <li>Team</li>
+          </a>
+          <a href="#">
+            <li>Mentores</li>
+          </a>
+          <a href="#">
+            <li>Gallery</li>
+          </a>
+          <a href="#">
+            <li>Terms and Conditions</li>
+          </a>
+        </ul>
+      </div>
+
+      <div class="footer-section contact-form">
+        <h2>Contact us</h2>
+        <br>
+        <form action="index.html" method="post">
+          <input type="email" name="email" class="text-input contact-input" placeholder="Your email address...">
+          <textarea rows="4" name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
+          <button type="submit" class="btn btn-big contact-btn">
+            <i class="fas fa-envelope"></i>
+            Send
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      &copy; codingpoets.com | Designed by Awa Melvine
+    </div>
+  </div> -->
+  <!-- // footer -->
+
+
+  <!-- JQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Slick Carousel -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+  <!-- Custom Script -->
+  <script src="js/scripts.js"></script>
+
+</body>
+
+</html>
