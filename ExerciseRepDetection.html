@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+  <style>
+    /* ---- reuse original blog_style skeleton inline ---- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', serif;
+      color: #333;
+      background: #f4f4f4;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1a1a2e;
+      padding: 12px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .logo-text {
+      font-family: 'Candal', sans-serif;
+      color: #e0e0e0;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    .nav { list-style: none; display: flex; gap: 20px; }
+    .nav a { color: #ccc; text-decoration: none; font-family: 'Candal', sans-serif; font-size: 0.85rem; }
+    .nav a:hover { color: #00d4aa; }
+    .menu-toggle { color: #ccc; font-size: 1.2rem; display: none; cursor: pointer; }
+
+    /* Page wrapper */
+    .page-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+    .content.clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Main content */
+    .main-content-wrapper { float: left; width: 70%; padding-right: 30px; }
+    .main-content { background: #fff; padding: 30px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+    .post-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.8rem;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+      border-left: 5px solid #00d4aa;
+      padding-left: 14px;
+      line-height: 1.3;
+    }
+
+    .post-content h2 {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.15rem;
+      color: #1a1a2e;
+      margin: 28px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #00d4aa;
+      display: inline-block;
+    }
+
+    .post-content p {
+      line-height: 1.8;
+      margin-bottom: 14px;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content ol, .post-content ul {
+      margin: 12px 0 16px 22px;
+      line-height: 1.9;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content img {
+      max-width: 100%;
+      border-radius: 4px;
+      margin: 14px 0;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Pipeline visual */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 22px 0;
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 18px 14px;
+    }
+    .pipe-step {
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      font-family: 'Candal', sans-serif;
+      text-align: center;
+      min-width: 120px;
+      line-height: 1.4;
+    }
+    .pipe-step span {
+      display: block;
+      font-size: 0.68rem;
+      color: #00d4aa;
+      margin-top: 3px;
+      font-family: 'Lora', serif;
+    }
+    .pipe-arrow {
+      font-size: 1.3rem;
+      color: #00d4aa;
+      padding: 0 6px;
+      font-weight: bold;
+    }
+
+    /* Sidebar */
+    .sidebar { float: right; width: 28%; }
+    .section { background: #fff; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 24px; }
+    .section-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1rem;
+      color: #1a1a2e;
+      border-bottom: 3px solid #00d4aa;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+    .post.clearfix { display: flex; align-items: center; margin-bottom: 12px; gap: 10px; }
+    .post.clearfix img { width: 52px; height: 52px; object-fit: cover; border-radius: 3px; background: #ddd; }
+    .post .title h4 { font-size: 0.82rem; color: #333; line-height: 1.4; }
+    .post .title { text-decoration: none; }
+    .post .title:hover h4 { color: #00d4aa; }
+
+    .section.topics ul { list-style: none; padding: 0; }
+    .section.topics ul li { border-bottom: 1px solid #f0f0f0; padding: 7px 0; }
+    .section.topics ul li a { text-decoration: none; color: #444; font-size: 0.88rem; }
+    .section.topics ul li a:hover { color: #00d4aa; }
+
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Note box */
+    .note-box {
+      background: #eafaf6;
+      border-left: 4px solid #00d4aa;
+      padding: 12px 16px;
+      border-radius: 0 4px 4px 0;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: #2d6a5a;
+    }
+
+    @media (max-width: 768px) {
+      .main-content-wrapper, .sidebar { float: none; width: 100%; padding: 0; margin-bottom: 20px; }
+      .menu-toggle { display: block; }
+      .nav { display: none; }
+    }
+  </style>
+
+  <title>SRSE – Exercise Rep Detection | WizPhys</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <h1 class="logo-text">Swapnil Gautam</h1>
+    </div>
+    <i class="fa fa-bars menu-toggle"></i>
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </header>
+
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
+    <div class="content clearfix">
+
+      <!-- Main Content -->
+      <div class="main-content-wrapper">
+        <div class="main-content single">
+          <h1 class="post-title">Exercise Rep Detection &amp; Form Correction System</h1>
+
+            <!-- Demo Video -->
+            <div style="margin: 20px 0; border-radius: 6px; overflow: hidden; background: #000;">
+            <video controls autoplay style="width: 100%; display: block; max-height: 420px;">
+              <source src="assets/vid/ExerciseRepDetection.mp4" type="video/mp4"> 
+              Your browser does not support the video tag.
+            </video>
+            </div>
+
+          <div class="post-content">
+
+            <h2 id="Problem-Statement">Problem Statement</h2>
+            <p>
+              Physiotherapy rehabilitation, especially for shoulder injuries, demands precise and consistent exercise execution. 
+              Shoulder Retraction and Scapular Extension (SRSE) exercises are commonly prescribed for shoulder rehabilitation, 
+              but patients performing these at home without supervision often develop incorrect form — 
+              which can slow recovery or cause further injury. 
+              Physiotherapists have no scalable way to monitor patient form in real time outside the clinic.
+            </p>
+            <p>
+              Manual supervision is expensive, geographically limited, and unavailable during most of a patient's daily exercise sessions. 
+              There was a clear need for an intelligent, accessible, and privacy-respecting system to fill this gap.
+            </p>
+
+            <h2 id="Approach">Approach</h2>
+            <p>
+              Traditional approaches to exercise monitoring rely on wearable sensors, force plates, or clinic-based motion capture systems — 
+              all of which are costly, require specialist hardware, and are inaccessible to most patients at home. 
+              Computer vision-based approaches using standard cameras offer a more accessible path, 
+              but general-purpose pose estimation models often lack the sensitivity needed for small, 
+              subtle physiotherapy movements like scapular retractions.
+            </p>
+            <p>
+              We developed a fully on-device solution for mobile phones. No images or video ever leave the user's device — 
+              all inference happens locally, making the system completely private and functional without an internet connection.
+            </p>
+            <div class="note-box">
+              🔒 <strong>Privacy by design:</strong> All processing runs on-device. No camera frames, images, or personal data are transmitted to any server.
+            </div>
+
+            <h2 id="Solution">Solution</h2>
+            <p>
+              The system uses a real-time camera feed from the mobile phone as its only input. 
+              Frames are passed through a two-stage inference pipeline:
+            </p>
+
+            <!-- Pipeline visual -->
+            <img src="assets/img/ERD_flowchart.png" alt="Exercise Rep Detection Pipeline" style="max-width: 100%; border-radius: 4px; margin: 14px 0;">
+
+            <ol>
+              <li>
+                <strong>MediaPipe Pose Estimation</strong> — The first stage runs Google's MediaPipe Holistic model to extract 33 body landmarks from each frame in real time. 
+                This provides a full skeleton map including shoulder, elbow, wrist, and torso keypoints critical for SRSE exercises.
+              </li>
+              <li>
+                <strong>Custom Model with ROI Cropping</strong> — SRSE exercises involve subtle scapular movements that general-purpose pose models struggle to resolve accurately. 
+                A Region of Interest (ROI) crop is computed around the shoulder girdle from MediaPipe's output, 
+                and this cropped region is passed to a custom fine-tuned model trained specifically on shoulder rehabilitation movements. 
+                Running both models in parallel allows coarse global pose tracking alongside sensitive local joint detection.
+              </li>
+            </ol>
+
+            <p>
+              Once keypoints are extracted, the system computes joint angles and relative distances between landmark points — 
+              specifically monitoring scapular retraction depth, shoulder blade symmetry, and arm position relative to the spine. 
+              These measurements are evaluated against pre-defined thresholds derived from clinical physiotherapy guidelines.
+            </p>
+
+            <p>
+              If the system detects that the user's form deviates from the correct movement pattern, 
+              it immediately triggers a real-time feedback response: a visual message is displayed on screen describing the specific error 
+              (e.g., <em>"Bring your shoulder blades closer together"</em> or <em>"Keep your arms at shoulder height"</em>), 
+              accompanied by an audio cue so the user doesn't need to look at the screen mid-exercise.
+            </p>
+
+            <h2 id="Challenges">Challenges</h2>
+            <p>
+              Shoulder rehabilitation exercises are among the most difficult to track with computer vision. 
+              Unlike large movements such as squats or jumping jacks, SRSE exercises involve small, precise movements of the scapula — 
+              a bone that sits behind the rib cage and produces minimal visible surface displacement.
+              Standard pose models are not trained to resolve these subtleties reliably.
+            </p>
+            <p>
+              Variability in patient body types, clothing, lighting conditions, and camera placement introduced significant noise. 
+              Running two models in parallel on a mobile CPU without degrading frame rate was a major engineering constraint 
+              that required careful optimization of the inference pipeline, including model quantization and ROI batching.
+            </p>
+            <p>
+              Defining the correct form thresholds for diverse patients also required close collaboration with physiotherapists 
+              to ensure the system's feedback was clinically meaningful and not overly rigid, 
+              since slight variation in technique is expected and acceptable across individuals.
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <!-- // Main Content -->
+
+      <!-- Sidebar -->
+      <div class="sidebar single">
+
+        <div class="section popular">
+          <h2 class="section-title">Other Projects</h2>
+
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title"><h4>ANPR — Automatic Number Plate Recognition</h4></a>
+          </div>
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title"><h4>Smart Switch</h4></a>
+          </div>
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title"><h4>Face Recognition Attendance System</h4></a>
+          </div>
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title"><h4>Yolo-Flask API</h4></a>
+          </div>
+          <div class="post clearfix">
+            <img src="images/image_1.png" alt="">
+            <a href="" class="title"><h4>Robotic Arm</h4></a>
+          </div>
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Contents</h2>
+          <ul>
+            <li><a href="#Problem-Statement">Problem Statement</a></li>
+            <li><a href="#Approach">Approach</a></li>
+            <li><a href="#Solution">Solution &amp; Pipeline</a></li>
+            <li><a href="#Challenges">Challenges</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- // Sidebar -->
+
+    </div>
+  </div>
+
+  <!-- JQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>
