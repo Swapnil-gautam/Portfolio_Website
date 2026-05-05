@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Swapnil Gautam | WindBorne ML Operations Submission</title>
+  <meta content="Written submission for the Machine Learning Operations Engineer role at WindBorne." name="description">
+  <meta name="robots" content="noindex">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:500,600,700" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Open Sans", Arial, sans-serif;
+      color: #1f2933;
+      background: #f5f8fd;
+      line-height: 1.7;
+    }
+
+    main {
+      width: min(900px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0;
+    }
+
+    h1,
+    h2 {
+      font-family: "Poppins", Arial, sans-serif;
+      color: #173b6c;
+      line-height: 1.25;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+    }
+
+    h2 {
+      margin: 36px 0 12px;
+      font-size: 22px;
+    }
+
+    .meta {
+      margin: 0 0 28px;
+      color: #52616f;
+      font-size: 15px;
+    }
+
+    .content {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 34px;
+      box-shadow: 0 8px 24px rgba(17, 24, 39, 0.06);
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    a {
+      color: #149ddd;
+      font-weight: 600;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 32px 0;
+      }
+
+      .content {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="content">
+      <h1>Machine Learning Operations Engineer Submission</h1>
+      <p class="meta">Swapnil Gautam | <a href="mailto:swapnilgtm1998@gmail.com">swapnilgtm1998@gmail.com</a></p>
+
+      <h2>Describe the most complex ML model inference you have run. Include details on the compute stack you used and any optimizations you made.</h2>
+      <p>The most complex inference system I have run was a real-time computer vision pipeline for manufacturing monitoring at Conduit. The goal was to infer CNC machine utilization states from production video streams and extract HMI screen text so the system could produce useful machine telemetry rather than just raw model predictions. The inference path combined visual state detection, OCR, edge execution, and structured event publishing into the downstream monitoring pipeline.</p>
+      <p>The model stack used YOLO-based detection models for machine state recognition and PaddleOCR for CNC HMI text recognition. I benchmarked model variants across six or more operational states and evaluated the tradeoff between accuracy, latency, and robustness under factory conditions such as glare, changing lighting, camera angle variation, and screen reflections. The edge side converted model outputs into structured events and published them through MQTT, which let downstream systems consume machine state and OCR outputs in near real time.</p>
+      <p>The optimizations were mostly the kind that matter in production: narrowing the label space to operationally meaningful states, comparing model size and inference quality instead of optimizing accuracy alone, tuning OCR for the constrained visual domain of CNC HMI screens, and keeping inference, post-processing, and event transport cleanly separated. That made the pipeline easier to debug and operate, improved production monitoring accuracy by about 45%, and supported an 86.7% OEE monitoring workflow.</p>
+
+      <h2>What's the most pain you've faced running production systems? What's an interesting change you made to increase resilience or uptime?</h2>
+      <p>The most painful production issues I have faced have come from model-backed systems where failures are intermittent and hard to reproduce. A model can look good in evaluation, but the real product also depends on camera quality, user behavior, device performance, network state, backend synchronization, and the way outputs are presented to users. When those pieces interact, a bad user experience may not obviously be a model bug, an input problem, or an infrastructure problem.</p>
+      <p>At Wizio AI Physio Coach, I helped build the ML stack for a real-time physiotherapy product, and the important resilience change was to make the pipeline modular instead of treating the model as one opaque endpoint. I worked across preprocessing, model development, testing, proof-of-concept delivery, deployment, and Firebase-backed data flows. Separating those stages made it easier to isolate whether an issue came from input quality, inference behavior, application state, or backend data sync, which reduced the time spent debugging vague production failures.</p>
+      <p>For the RAG-based chat layer, I focused on grounding and latency as reliability problems, not just model-quality problems. I used a LangChain-powered retrieval approach to reduce hallucinations and processing time by about 70%, which made the feature more dependable for users. The broader lesson I took from that work is that resilient ML systems need clear boundaries around inputs, inference, post-processing, transport, storage, and user feedback. Once those boundaries are explicit, it becomes much easier to add validation, replace weak components, and keep the product usable when one part of the system behaves imperfectly.</p>
+    </div>
+  </main>
+</body>
+
+</html>
