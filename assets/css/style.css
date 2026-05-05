@@ -294,6 +294,46 @@ margin-right: 10px;
   border-bottom: 0px solid #149ddd;
 }
 
+.resume-download-btn,
+.resume-download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.resume-download-btn {
+  padding: 12px 20px;
+  border: 2px solid #fff;
+  color: #fff;
+  background: rgba(20, 157, 221, 0.2);
+}
+
+.resume-download-btn:hover {
+  color: #fff;
+  background: #149ddd;
+  border-color: #149ddd;
+}
+
+.resume-download-link {
+  padding: 10px 16px;
+  color: #fff;
+  background: #149ddd;
+}
+
+.resume-download-link:hover {
+  color: #fff;
+  background: #37b3ed;
+}
+
+.resume-download-btn i,
+.resume-download-link i {
+  font-size: 20px;
+}
+
 @media (min-width: 1024px) {
   #hero {
     background-attachment: fixed;
