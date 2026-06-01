@@ -610,15 +610,39 @@ section {
 }
 
 .portfolio .portfolio-wrap {
-  transition: 0.3s;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
   position: relative;
   overflow: hidden;
   z-index: 1;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  background: #0f172a;
+  aspect-ratio: 16 / 9;
+}
+
+.portfolio .portfolio-wrap:hover {
+  transform: scale(1.08);
+  box-shadow: 0 22px 44px rgba(15, 23, 42, 0.28);
+  z-index: 10;
+}
+
+.portfolio .portfolio-wrap:hover .portfolio-media,
+.portfolio .portfolio-wrap:hover img {
+  transform: scale(1.05);
+}
+
+.portfolio .portfolio-wrap .portfolio-media,
+.portfolio .portfolio-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
 .portfolio .portfolio-wrap::before {
   content: "";
-  background: rgba(255, 255, 255, 0.5);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 55%, rgba(15, 23, 42, 0.35) 100%);
   position: absolute;
   left: 0;
   right: 0;
@@ -626,7 +650,39 @@ section {
   bottom: 0;
   transition: all ease-in-out 0.3s;
   z-index: 2;
-  opacity: 0;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.portfolio .portfolio-wrap .video-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  background: rgba(15, 23, 42, 0.78);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  z-index: 4;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+.portfolio .portfolio-wrap .video-badge::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 6px solid #fff;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
 }
 
 .portfolio .portfolio-wrap .portfolio-links {
@@ -671,33 +727,35 @@ section {
   bottom: 0;
 } */
 
-/* New styles for the project title */
+/* Project title — always visible, brightens on hover */
 .portfolio .portfolio-wrap .project-title {
   position: absolute;
-  bottom: 0%;
-  left: 0%;
-  transform: 0;
-  background: rgba(20, 157, 221, 0.75); /* Using your existing blue color */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 38px 24px 22px;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.55) 65%, rgba(15, 23, 42, 0) 100%);
   color: #fff;
-  padding: 15px;
-  border-radius: 5px;
-  width: 100%;
-  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
   font-weight: 600;
-  opacity: 0;
-  transition: all ease-in-out 0.3s;
+  line-height: 1.35;
+  opacity: 1;
+  transition: background 0.35s ease, transform 0.35s ease;
   z-index: 3;
   pointer-events: none;
-  text-align: center;
+  text-align: left;
 }
 
-/* Modify hover effects */
-.portfolio .portfolio-wrap:hover::before {
-  opacity: 1;
+@media (max-width: 768px) {
+  .portfolio .portfolio-wrap .project-title {
+    padding: 28px 18px 16px;
+    font-size: 16px;
+  }
 }
 
 .portfolio .portfolio-wrap:hover .project-title {
-  opacity: 1;
+  background: linear-gradient(to top, rgba(20, 157, 221, 0.95) 0%, rgba(20, 157, 221, 0.6) 65%, rgba(20, 157, 221, 0) 100%);
 }
 
 
