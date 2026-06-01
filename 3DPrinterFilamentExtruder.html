@@ -2,288 +2,86 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
-
-  <!-- Custom Styling -->
-  <link rel="stylesheet" href="blog_css/blog_style.css">
-
-  <title>ANPR</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Swapnil Gautam | 3D Printer Filament Extruder</title>
+  <meta content="Project detail for a custom 3D printer filament extruder." name="description">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:500,600,700" rel="stylesheet">
+  <link href="assets/css/project-detail.css" rel="stylesheet">
 </head>
 
 <body>
-  <!-- Facebook Page Plugin SDK -->
-  <!-- <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=285071545181837&autoLogAppEvents=1">
-  </script> -->
-
-  <header>
-    <div class="logo">
-      <h1 class="logo-text">Swapnil Gautam</h1>
-    </div>
-    <i class="fa fa-bars menu-toggle"></i>
-    <ul class="nav">
-      <li><a href="index.html">Home</a></li>
-      <!-- <li><a href="#">Sign Up</a></li>
-      <li><a href="#">Login</a></li> -->
-    </ul>
+  <header class="project-header">
+    <p class="brand">Swapnil Gautam</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#portfolio">Projects</a>
+    </nav>
   </header>
 
-  <!-- Page Wrapper -->
-  <div class="page-wrapper">
-
-    <!-- Content -->
-    <div class="content clearfix">
-
-      <!-- Main Content Wrapper -->
-      <div class="main-content-wrapper">
-        <div class="main-content single">
-          <h1 class="post-title">Automatic Number Plate Recognition System (ANPR)</h1>
-          
-          <div class="post-content">
-            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione modi error rerum possimus animi! Eos!
-            </p> -->
-
-            <h2 class="Problem-statement">Problem statement:</h1>
-            <p>With an increased number of vehicles passing by the SEZ, 
-              there is a need for a vehicle identification mechanism that is effective, affordable, and efficient. 
-              Manual data logging is a slow, tedious, and primitive method. 
-              Since the system is manual, there is always some scope of connivance by security personnel. 
-              There are also increased insecurity challenges including smuggling and terrorism which call for increased surveillance.</p>
-            <h2 class="Approch">Approach:</h1>
-            <p>Earlier, a primitive manual approach is used for the registration of new vehicles entering the SEZ, 
-              which involves writing down the details of the vehicles and providing each vehicle with a gate pass. 
-              This process of writing is tedious and time-consuming and is prone to inaccurate recordings, furthermore, 
-              the backup and sharing of this vehicle information are difficult because the data is saved in hard copy. 
-              The earlier approach often leads to traffic congestion and chaos on the gateway that hinders the productivity of SEZ industries.
-              </p>
-            <p>With the rapid increase in cars and transportation systems which make it impossible to be fully managed and monitored by humans, 
-              we propose an Automatic number plate recognition system. 
-              Automatic number plate recognition (ANPR) is an image processing technology that uses a number (license) plate to identify the vehicle. 
-              The objective is to design an efficient automatic authorized vehicle identification system by using the vehicle number plate. 
-              The developed system first detects the vehicle and then captures the vehicle image. The vehicle number plate region is extracted using the image segmentation in an image. 
-              This data is then transferred to the central hub. All the data will be stored in a MongoDB server that can be accessed by the officials whenever required. 
-              If an intruder or non-registered vehicle tries to enter the zone it updates the data and informs the authority about the intrusion
-            </p>
-            <h2 class="Solution">Solution:</h1>
-            <p>Automatic Number Plate Recognition (ANPR) is a computer vision system capable of reading 
-              vehicle number plates and detecting characters within it with zero human intervention.
-            </p>
-            <p>When a vehicle crosses the security gates, 
-              The system first detects the vehicle and then captures the vehicle image, 
-              and using some deep learning magic, 
-              it detects the number plate of the vehicle. 
-            </p>
-            <img src="assets/img/ANPR_pipeline.png" alt="ANPR pipeline"> 
-            <p>The ANPR pipeline consists of 2 major object detection algorithm 
-            </p>
-            <ol>
-              <li>YOLO-tiny for number plate detection </li>
-              <img src="assets/img/YOLO-tiny.png" alt="YOLO-tiny"> 
-              <li>YOLOv3 as OCR to extract characters from the number palet.</li>
-              <img src="assets/img/YOLOv3.png" alt="YOLOv3"> 
-            </ol> 
-
-            <p> We used a pre-trained YOLO-tiny model for vehicle and number plate detection. 
-              The Model takes the camera feed as input and provides the 4 coordinates of the bounding box generated over the number plate. 
-              Using these coordinates the system crops the number plate image from the live stream frame. 
-              The cropped image is then pre-processed with various image processing techniques to make it ready to feed into the OCR
-            </p>
-
-            <p> We trained a custom OCR using YOLOv3 architecture and our ingenious dataset. 
-              We tried to use pre-trained OCRs like Pytesseract and EasyOCR but they gave a very low accuracy score. 
-              Thus we trained our own OCR according to our requirements. 
-              We choose YOLOv3 because it is good at detecting small characters which match our requirements. 
-              The model takes preprocessed number plate as input and outputs the prediction score and bounding box coordinates of all the characters it recognized in the number plate image. 
-              The recognized characters are checked for threshold confidence of 90%, 
-              the characters that pass the threshold are then arranged into a string according to their center point coordinates. 
-              The string is then passed from a Regex to make sure that the string is following the Indian Number Plate formate.
-            </p>
-            <p> The final generated string of number plate characters is then passed to the MongoDB server with a timestamp, 
-              gate number, and in-out state. 
-              The server allows the user to get all the timing history of any number plate. 
-              Also, the database is linked with the earlier database that can help us get the id associated with the number plate, 
-              If no ID is associated with the number plate then it triggers a warning to the user.
-            </p>
-            <h2 class="Challenges">Challenges:</h1>
-            <p>The need for ANPR in KASEZ is strong. However, the solution may not be as clear. 
-              ANPR in countries such as Vietnam, Australia, and Italy, which have fairly standardized license plates, 
-              have accuracy levels often exceeding 90%. India, however, is quite different. 
-              The variations of Indian license plates make it difficult for an ANPR system to accurately identify and decode the license plate. 
-              Also, the lack of a dataset is a big issue, 
-              no model can be accurate with insufficient data
-              </p>
-            <p>Moreover, cameras deployed in India tend to be of lower quality, 
-              thereby compounding the ability of ANPR engines to accurately decode the license plate. 
-              The low-cost cameras have limited visual coverage, are equipped with less acute motion and object detection sensors, 
-              and contain limited night vision capabilities. 
-              These three factors increase the number of blind spots and the occurrence of blurry images. ANPR for India is particularly difficult, 
-              and accuracy rates seldom exceed 70% from our internal analysis of our and competitive ANPR providers.
-              </p>
-            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, nisi.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione modi error rerum possimus animi! Eos!
-            </p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam placeat at molestias vitae! Ipsa
-              repudiandae praesentium nobis nesciunt, iusto pariatur tenetur commodi! Iste sequi placeat dolores nulla,
-              expedita voluptas officiis.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, facere iste! Ex quia hic recusandae
-              optio velit ad consectetur totam sed sunt quasi voluptates, sequi molestias alias sapiente iste asperiores
-              nostrum est voluptatem quae earum accusantium. Totam dolorem possimus rem!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, nisi.</p> -->
-          </div>
-
+  <main class="project-shell">
+    <section class="project-hero">
+      <div>
+        <p class="eyebrow">Mechanical Design / Manufacturing</p>
+        <h1>3D Printer Filament Extruder</h1>
+        <p class="lead">A desktop filament extrusion prototype for converting plastic feedstock into usable 3D printing filament with controlled heating and pull speed.</p>
+        <div class="chips">
+          <span class="chip">CAD</span>
+          <span class="chip">Thermal Control</span>
+          <span class="chip">Motor Control</span>
+          <span class="chip">Arduino</span>
+          <span class="chip">Fabrication</span>
         </div>
       </div>
-      <!-- // Main Content -->
-
-      <!-- Sidebar -->
-      <div class="sidebar single">
-
-        <!-- <div class="fb-page" data-href="https://web.facebook.com/codingpoets/" data-small-header="false"
-          data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-          <blockquote cite="https://web.facebook.com/codingpoets/" class="fb-xfbml-parse-ignore"><a
-              href="https://web.facebook.com/codingpoets/">Coding Poets</a></blockquote>
-        </div> -->
-
-
-        <div class="section popular">
-          <h2 class="section-title">Suggestion</h2>
-
-          <div class="post clearfix">
-            <img src="images/image_1.png" alt="">
-            <a href="" class="title">
-              <h4>Smart Switch</h4>
-            </a>
-          </div>
-          <div class="post clearfix">
-            <img src="images/image_1.png" alt="">
-            <a href="" class="title">
-              <h4>Face Recognition Attendance System</h4>
-            </a>
-          </div>
-          <div class="post clearfix">
-            <img src="images/image_1.png" alt="">
-            <a href="" class="title">
-              <h4>Smart Box</h4>
-            </a>
-          </div>
-          <div class="post clearfix">
-            <img src="images/image_1.png" alt="">
-            <a href="" class="title">
-              <h4>Yolo-Flask API</h4>
-            </a>
-          </div>
-          <div class="post clearfix">
-            <img src="images/image_1.png" alt="">
-            <a href="" class="title">
-              <h4>Robotic Arm</h4>
-            </a>
-          </div>
-
-        </div>
-
-        <div class="section topics">
-          <h2 class="section-title">Content</h2>
-          <ul>
-            <li><a href="#Problem-Statement">Problem Statement</a></li>
-            <li><a href="#Approach">Approach</a></li>
-            <li><a href="#Challenges">Challenges</a></li>
-            <li><a href="#Solution">Solution</a></li>
-          </ul>
-        </div>
+      <div class="hero-media">
+        <img src="assets/img/Projects/3DPrinterFilamentExtruder.png" alt="3D printer filament extruder preview">
       </div>
-      <!-- // Sidebar -->
+    </section>
 
-    </div>
-    <!-- // Content -->
+    <div class="content-grid">
+      <article class="project-card">
+        <h2 id="problem">Problem Statement</h2>
+        <p>3D printing produces failed prints and leftover plastic that often becomes waste. A small filament extruder can reduce material waste by turning plastic pellets or recycled plastic into filament, but the output diameter must remain consistent enough for reliable printing.</p>
 
-  </div>
-  <!-- // Page Wrapper -->
+        <h2 id="approach">Approach</h2>
+        <p>The extruder was designed around three constraints: stable melting temperature, smooth material feed, and controlled cooling. The system needed to heat plastic evenly, push it through a nozzle, and pull it at a repeatable speed to manage final filament diameter.</p>
 
-  <!-- footer -->
-  <!-- <div class="footer">
-    <div class="footer-content">
-
-      <div class="footer-section about">
-        <h1 class="logo-text"><span>Awa</span>Inspires</h1>
-        <p>
-          AwaInspires is a fictional blog conceived for the purpose of a tutorial on YouTube.
-          However, Awa has a blog called pieceofadvice.org where he writes truly inspiring stuff.
-        </p>
-        <div class="contact">
-          <span><i class="fas fa-phone"></i> &nbsp; 123-456-789</span>
-          <span><i class="fas fa-envelope"></i> &nbsp; info@awainspires.com</span>
-        </div>
-        <div class="socials">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-      </div>
-
-      <div class="footer-section links">
-        <h2>Quick Links</h2>
-        <br>
+        <h2 id="solution">Solution</h2>
+        <img class="detail-image" src="assets/img/Projects/3DPrinterFilamentExtruder.jpg" alt="Filament extruder hardware">
         <ul>
-          <a href="#">
-            <li>Events</li>
-          </a>
-          <a href="#">
-            <li>Team</li>
-          </a>
-          <a href="#">
-            <li>Mentores</li>
-          </a>
-          <a href="#">
-            <li>Gallery</li>
-          </a>
-          <a href="#">
-            <li>Terms and Conditions</li>
-          </a>
+          <li>Built the extrusion body, hopper, nozzle, and drive mechanism for plastic feedstock.</li>
+          <li>Integrated heating elements and temperature sensing for controlled melting.</li>
+          <li>Used motor speed control to tune the feed and pull rate.</li>
+          <li>Iterated on cooling distance and winding behavior to improve filament consistency.</li>
         </ul>
-      </div>
 
-      <div class="footer-section contact-form">
-        <h2>Contact us</h2>
-        <br>
-        <form action="index.html" method="post">
-          <input type="email" name="email" class="text-input contact-input" placeholder="Your email address...">
-          <textarea rows="4" name="message" class="text-input contact-input" placeholder="Your message..."></textarea>
-          <button type="submit" class="btn btn-big contact-btn">
-            <i class="fas fa-envelope"></i>
-            Send
-          </button>
-        </form>
-      </div>
+        <div class="note">This project paired mechanical fabrication with feedback control, making it a useful bridge between product design and manufacturing automation.</div>
 
+        <h2 id="challenges">Challenges</h2>
+        <p>The main challenge was filament diameter consistency. Temperature drift, inconsistent feedstock, and cooling rate changes all affected the output, so the prototype required repeated tuning across heater settings and pull speeds.</p>
+      </article>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h2>Other Projects</h2>
+          <div class="related-list">
+            <a class="related-item" href="SingleExtruder3DPrinter.html"><img src="assets/img/Projects/SingleExtruder3DPrinter.png" alt=""><span>Single Extruder 3D Printer</span></a>
+            <a class="related-item" href="MobileRoboticArm.html"><img src="assets/img/Projects/MobileRoboticArm.png" alt=""><span>Mobile Robotic Arm</span></a>
+            <a class="related-item" href="BoneConductionHeadphone.html"><img src="assets/img/Projects/BoneConductionHeadphone.png" alt=""><span>Bone Conduction Headphone</span></a>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <h2>Contents</h2>
+          <ol class="toc">
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#challenges">Challenges</a></li>
+          </ol>
+        </div>
+      </aside>
     </div>
-
-    <div class="footer-bottom">
-      &copy; codingpoets.com | Designed by Awa Melvine
-    </div>
-  </div> -->
-  <!-- // footer -->
-
-
-  <!-- JQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <!-- Slick Carousel -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-  <!-- Custom Script -->
-  <script src="js/scripts.js"></script>
-
+  </main>
 </body>
 
 </html>

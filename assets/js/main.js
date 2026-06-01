@@ -141,6 +141,41 @@
       aos_init();
     });
 
+    // Hover-to-play portfolio videos (desktop). On touch devices, the
+    // poster / first frame stays visible and tap navigates to the detail page.
+    var isTouch = window.matchMedia('(hover: none)').matches;
+    if (!isTouch) {
+      $('.portfolio-wrap').each(function() {
+        var wrap = this;
+        var video = wrap.querySelector('video.portfolio-media');
+        if (!video) return;
+
+        var playPromise;
+        wrap.addEventListener('mouseenter', function() {
+          if (video.preload === 'none') video.preload = 'metadata';
+          playPromise = video.play();
+          if (playPromise && playPromise.catch) playPromise.catch(function() {});
+        });
+        wrap.addEventListener('mouseleave', function() {
+          var stop = function() {
+            video.pause();
+            try { video.currentTime = 0; } catch (e) {}
+          };
+          if (playPromise && playPromise.then) {
+            playPromise.then(stop).catch(stop);
+          } else {
+            stop();
+          }
+        });
+
+        // Once metadata loads, ask Isotope to recalculate — fixes cards that
+        // had no poster (e.g. Process Monitoring) collapsing to zero height.
+        video.addEventListener('loadedmetadata', function() {
+          portfolioIsotope.isotope('layout');
+        });
+      });
+    }
+
     // Initiate venobox (lightbox feature used in portofilo)
     $(document).ready(function() {
       $('.venobox').venobox();
