@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Swapnil Gautam | Single Extruder 3D Printer</title>
-  <meta content="Project detail for a custom single extruder 3D printer build." name="description">
+  <title>Swapnil Gautam | 3D Printer & Filament Extruder</title>
+  <meta content="Project detail for a custom single extruder 3D printer and a matching desktop filament extruder build." name="description">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Poppins:500,600,700" rel="stylesheet">
   <link href="assets/css/project-detail.css" rel="stylesheet">
 </head>
@@ -23,14 +23,15 @@
     <section class="project-hero">
       <div>
         <p class="eyebrow">Robotics / Digital Fabrication</p>
-        <h1>Single Extruder 3D Printer</h1>
-        <p class="lead">A custom FDM 3D printer build focused on stable motion, repeatable extrusion, and practical calibration for reliable desktop fabrication.</p>
+        <h1>3D Printer & Filament Extruder</h1>
+        <p class="lead">A connected mechatronics project: a custom single-extruder FDM 3D printer paired with a desktop filament extruder, covering the full path from raw plastic to printed part.</p>
         <div class="chips">
           <span class="chip">CAD</span>
+          <span class="chip">Fusion 360</span>
           <span class="chip">Arduino</span>
           <span class="chip">Marlin</span>
           <span class="chip">Stepper Motors</span>
-          <span class="chip">Fusion 360</span>
+          <span class="chip">Thermal Control</span>
         </div>
       </div>
       <div class="hero-media">
@@ -41,33 +42,44 @@
     <div class="content-grid">
       <article class="project-card">
         <h2 id="problem">Problem Statement</h2>
-        <p>Commercial 3D printers hide a lot of the mechanical and control tradeoffs behind polished hardware. This project set out to build a single extruder printer from the ground up to understand motion systems, extrusion consistency, thermal control, firmware tuning, and print calibration.</p>
+        <p>Commercial 3D printers hide a lot of the mechanical and control tradeoffs behind polished hardware, and they always produce failed prints and offcuts that become plastic waste. Building both a printer and a filament extruder together forces you to understand the full FDM pipeline — melting and feeding plastic, controlled extrusion, coordinated motion — and closes the loop by turning waste back into usable filament.</p>
 
         <h2 id="approach">Approach</h2>
-        <p>The printer was designed as a practical mechatronics system: rigid frame first, then controlled motion, then extrusion and temperature stability. Each subsystem was assembled and tested independently before full printer calibration.</p>
+        <p>Both systems were designed as practical mechatronics builds: rigid mechanical foundation first, then controlled motion or feed, then heating and stability tuning. Each subsystem was assembled and tested independently before full integration.</p>
 
         <h2 id="solution">Solution</h2>
+
+        <h3>Single Extruder 3D Printer</h3>
         <img class="detail-image" src="assets/img/Projects/3DPrinter.jpg" alt="3D printer build image">
         <ul>
           <li>Designed and assembled the frame, carriage, bed, and extruder mount.</li>
           <li>Integrated stepper motors, end stops, heated bed, hot end, and controller electronics.</li>
-          <li>Configured firmware parameters for axis steps, acceleration, jerk, thermal limits, and homing behavior.</li>
+          <li>Configured Marlin firmware parameters for axis steps, acceleration, jerk, thermal limits, and homing.</li>
           <li>Calibrated extrusion flow, bed leveling, first-layer adhesion, and print temperature profiles.</li>
         </ul>
 
-        <div class="note">The project connected mechanical design with embedded control, which made later robotics projects much easier to reason about.</div>
+        <h3>Filament Extruder</h3>
+        <img class="detail-image" src="assets/img/Projects/3DPrinterFilamentExtruder.jpg" alt="Filament extruder hardware">
+        <ul>
+          <li>Built the extrusion body, hopper, nozzle, and drive mechanism for plastic feedstock.</li>
+          <li>Integrated heating elements and temperature sensing for controlled melting.</li>
+          <li>Used motor speed control to tune the feed and pull rate.</li>
+          <li>Iterated on cooling distance and winding behavior to improve filament diameter consistency.</li>
+        </ul>
+
+        <div class="note">Pairing the two projects connected mechanical design, embedded control, and feedback tuning into one workflow — useful groundwork for later robotics builds.</div>
 
         <h2 id="challenges">Challenges</h2>
-        <p>Mechanical tolerances created the biggest learning curve. Small frame misalignments, belt tension changes, or bed-leveling errors showed up directly in print quality, so the build required iterative measurement, tuning, and test prints.</p>
+        <p>On the printer, mechanical tolerances were the biggest learning curve — small frame misalignments, belt tension changes, or bed-leveling errors showed up directly in print quality, so the build required iterative measurement and test prints. On the extruder, filament diameter consistency was the recurring issue: temperature drift, inconsistent feedstock, and cooling-rate changes all affected output, so the prototype required repeated tuning across heater settings and pull speeds.</p>
       </article>
 
       <aside class="sidebar">
         <div class="sidebar-card">
           <h2>Other Projects</h2>
           <div class="related-list">
-            <a class="related-item" href="3DPrinterFilamentExtruder.html"><img src="assets/img/Projects/3DPrinterFilamentExtruder.png" alt=""><span>3D Printer Filament Extruder</span></a>
             <a class="related-item" href="MobileRoboticArm.html"><img src="assets/img/Projects/MobileRoboticArm.png" alt=""><span>Mobile Robotic Arm</span></a>
-            <a class="related-item" href="BionicArm.html"><img src="assets/img/Projects/BionicArm.png" alt=""><span>Bionic Arm</span></a>
+            <a class="related-item" href="ExerciseRepDetection.html"><img src="assets/img/Projects/ExerciseRepDetection.png" alt=""><span>Exercise Rep Detection</span></a>
+            <a class="related-item" href="VirtualTryOn.html"><img src="assets/img/Projects/VirtualTryOn.png" alt=""><span>Virtual Try On</span></a>
           </div>
         </div>
         <div class="sidebar-card">

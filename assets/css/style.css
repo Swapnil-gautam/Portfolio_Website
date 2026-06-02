@@ -575,7 +575,7 @@ section {
 # Portfolio
 --------------------------------------------------------------*/
 .portfolio .portfolio-item {
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 
 .portfolio #portfolio-flters {
@@ -609,25 +609,29 @@ section {
   margin-right: 0;
 }
 
+.portfolio > .container {
+  max-width: 1200px;
+}
+
 .portfolio .portfolio-wrap {
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   position: relative;
   overflow: hidden;
   z-index: 1;
-  border-radius: 10px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.22), 0 4px 10px rgba(15, 23, 42, 0.12);
   background: #0f172a;
   aspect-ratio: 16 / 9;
 }
 
-.portfolio .portfolio-wrap:hover {
-  transform: scale(1.08);
-  box-shadow: 0 22px 44px rgba(15, 23, 42, 0.28);
+.portfolio .portfolio-item:hover .portfolio-wrap {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 56px rgba(15, 23, 42, 0.32), 0 8px 18px rgba(15, 23, 42, 0.18);
   z-index: 10;
 }
 
-.portfolio .portfolio-wrap:hover .portfolio-media,
-.portfolio .portfolio-wrap:hover img {
+.portfolio .portfolio-item:hover .portfolio-media,
+.portfolio .portfolio-item:hover .portfolio-wrap img {
   transform: scale(1.05);
 }
 
@@ -727,37 +731,29 @@ section {
   bottom: 0;
 } */
 
-/* Project title — always visible, brightens on hover */
-.portfolio .portfolio-wrap .project-title {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 38px 24px 22px;
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.55) 65%, rgba(15, 23, 42, 0) 100%);
-  color: #fff;
+/* Project title — sits below the video, never overlaps content */
+.portfolio .portfolio-item .project-title {
+  margin-top: 14px;
+  padding: 0 4px;
+  color: #173b6c;
   font-family: "Poppins", sans-serif;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 600;
   line-height: 1.35;
-  opacity: 1;
-  transition: background 0.35s ease, transform 0.35s ease;
-  z-index: 3;
-  pointer-events: none;
   text-align: left;
+  transition: color 0.3s ease;
+}
+
+.portfolio .portfolio-item:hover .project-title {
+  color: #149ddd;
 }
 
 @media (max-width: 768px) {
-  .portfolio .portfolio-wrap .project-title {
-    padding: 28px 18px 16px;
-    font-size: 16px;
+  .portfolio .portfolio-item .project-title {
+    font-size: 15px;
+    margin-top: 10px;
   }
 }
-
-.portfolio .portfolio-wrap:hover .project-title {
-  background: linear-gradient(to top, rgba(20, 157, 221, 0.95) 0%, rgba(20, 157, 221, 0.6) 65%, rgba(20, 157, 221, 0) 100%);
-}
-
 
 /*--------------------------------------------------------------
 # Services
