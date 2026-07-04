@@ -29,13 +29,22 @@
 
 
 <body>
+
+  <!-- Scroll progress bar -->
+  <div id="scroll-progress"></div>
+
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-  
+
+    <!-- Ambient background: floating orbs + grain -->
+    <div class="hero-orb hero-orb--a" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb--b" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb--c" aria-hidden="true"></div>
+    <div class="hero-grain" aria-hidden="true"></div>
 
     <div class="nav">
       <input type="checkbox" id="nav-check">
-  
+
       <div class="nav-btn">
         <label for="nav-check">
           <span></span>
@@ -43,13 +52,13 @@
           <span></span>
         </label>
       </div>
-      
+
       <div class="nav-links">
           <ul>
-            <li class="active"><a href="index.html"><i class="bx bx-home"></i> <span>Home</span></a></li> 
+            <li class="active"><a href="index.html"><i class="bx bx-home"></i> <span>Home</span></a></li>
             <li><a href="#about"><i class="bx bx-user"></i> <span>About</span></a></li>
-            <li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
             <li><a href="#portfolio"><i class="bx bx-book-content"></i>Projects</a></li>
+            <li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
             <!-- <li><a href="#services"><i class="bx bx-server"></i> Services</a></li> -->
             <!-- <li><a href="#contact"><i class="bx bx-envelope"></i> Contact</a></li> -->
           </ul>
@@ -57,18 +66,14 @@
     </div>
 
 
-        
+
     <div class="hero-container" data-aos="fade-in">
       <h1>Swapnil Gautam</h1>
       <p>I'm a <span class="typed" data-typed-items="Machine Learning Engineer, Computer Vision Engineer, Generative AI Engineer"></span></p>
-      <a class="resume-download-btn" href="Swapnil_Gautam.pdf" download>
-        <i class="bx bx-download"></i>
-        <span>Download Resume</span>
-      </a>
     </div>
 
 
-    
+
   </section><!-- End Hero -->
 
   <main id="main">
@@ -84,6 +89,141 @@
     </section><!-- End About Section -->
 
 
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Projects</h2>
+          <!-- <p>Magnam dolores projects commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-ML">Machine Learning</li>
+              <li data-filter=".filter-Robotics">Robotics</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
+
+          <a href="#" style="text-decoration: none;">
+            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
+              <div class="portfolio-wrap">
+                <video class="portfolio-media" src="assets/vid/gif/ProcessMonitoring.mp4#t=0.1" autoplay loop muted playsinline preload="metadata"></video>
+                <span class="video-badge">Video</span>
+                <div class="portfolio-overlay">
+                  <div class="tech-tags">
+                    <span>YOLO</span><span>PaddleOCR</span><span>MQTT</span><span>Edge</span>
+                  </div>
+                  <span class="view-case">View case study <i class="bx bx-right-arrow-alt"></i></span>
+                </div>
+              </div>
+              <div class="project-title">Manufacturing Process Monitoring</div>
+            </div>
+          </a>
+
+          <a href="AITutor.html" style="text-decoration: none;">
+            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
+              <div class="portfolio-wrap">
+                <img class="portfolio-media" src="assets/vid/gif/ai_tutor.gif" alt="AI Tutor demo">
+                <span class="video-badge">Video</span>
+                <div class="portfolio-overlay">
+                  <div class="tech-tags">
+                    <span>Gemini</span><span>RAG</span><span>ChromaDB</span><span>Hybrid Search</span>
+                  </div>
+                  <span class="view-case">View case study <i class="bx bx-right-arrow-alt"></i></span>
+                </div>
+              </div>
+              <div class="project-title">AI Tutor — Vision-Aware RAG for Course Materials</div>
+            </div>
+          </a>
+
+          <a href="ExerciseRepDetection.html" style="text-decoration: none;">
+            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
+              <div class="portfolio-wrap">
+                <video class="portfolio-media" src="assets/vid/gif/Wizio.mp4#t=0.1" autoplay loop muted playsinline preload="metadata"></video>
+                <span class="video-badge">Video</span>
+                <div class="portfolio-overlay">
+                  <div class="tech-tags">
+                    <span>MediaPipe</span><span>On-Device</span><span>Real-time</span><span>Mobile</span>
+                  </div>
+                  <span class="view-case">View case study <i class="bx bx-right-arrow-alt"></i></span>
+                </div>
+              </div>
+              <div class="project-title">Exercise Rep Detection & Form Correction System</div>
+            </div>
+          </a>
+
+          <a href="VirtualTryOn.html" style="text-decoration: none;">
+            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
+              <div class="portfolio-wrap">
+                <video class="portfolio-media" src="assets/vid/gif/Virtual_TryOn.mp4#t=0.1" autoplay loop muted playsinline preload="metadata"></video>
+                <span class="video-badge">Video</span>
+                <div class="portfolio-overlay">
+                  <div class="tech-tags">
+                    <span>Segmentation</span><span>PyTorch</span><span>ONNX</span><span>Hand Landmarks</span>
+                  </div>
+                  <span class="view-case">View case study <i class="bx bx-right-arrow-alt"></i></span>
+                </div>
+              </div>
+              <div class="project-title">Virtual Try On</div>
+            </div>
+          </a>
+
+          <a href="ANPR.html" style="text-decoration: none;">
+            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
+              <div class="portfolio-wrap">
+                <video class="portfolio-media" src="assets/vid/gif/ANPR.mp4#t=0.1" autoplay loop muted playsinline preload="metadata"></video>
+                <span class="video-badge">Video</span>
+                <div class="portfolio-overlay">
+                  <div class="tech-tags">
+                    <span>YOLO</span><span>OCR</span><span>Detection</span><span>OpenCV</span>
+                  </div>
+                  <span class="view-case">View case study <i class="bx bx-right-arrow-alt"></i></span>
+                </div>
+              </div>
+              <div class="project-title">Automatic Number Plate Recognition System</div>
+            </div>
+          </a>
+
+          <a href="SingleExtruder3DPrinter.html" style="text-decoration: none;">
+            <div class="col-lg-6 col-md-6 portfolio-item filter-Robotics">
+              <div class="portfolio-wrap">
+                <img src="assets/img/Projects/SingleExtruder3DPrinter.png" class="img-fluid" alt="">
+                <div class="portfolio-overlay">
+                  <div class="tech-tags">
+                    <span>Mechatronics</span><span>CAD</span><span>Hardware</span><span>Firmware</span>
+                  </div>
+                  <span class="view-case">View case study <i class="bx bx-right-arrow-alt"></i></span>
+                </div>
+              </div>
+              <div class="project-title">3D Printer & Filament Extruder</div>
+            </div>
+          </a>
+
+          <a href="MobileRoboticArm.html" style="text-decoration: none;">
+            <div class="col-lg-6 col-md-6 portfolio-item filter-Robotics">
+              <div class="portfolio-wrap">
+                <img src="assets/img/Projects/MobileRoboticArm.png" class="img-fluid" alt="">
+                <div class="portfolio-overlay">
+                  <div class="tech-tags">
+                    <span>ROS</span><span>Kinematics</span><span>IEEE Published</span><span>Robotics</span>
+                  </div>
+                  <span class="view-case">View case study <i class="bx bx-right-arrow-alt"></i></span>
+                </div>
+              </div>
+              <div class="project-title">Mobile Robotic Arm</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section><!-- End Portfolio Section -->
+
     <!-- ======= Resume Section ======= -->
     <section id="resume" class="resume">
       <div class="container">
@@ -95,7 +235,7 @@
             <span>Download PDF Resume</span>
           </a>
         </div>
-        
+
         <!-- // can add NM ans stevens college symbols -->
         <div class="row">
           <div class="col-lg-6" data-aos="fade-up">
@@ -110,11 +250,11 @@
                 <li>linkedin.com/in/swapnil-gautam</li>
               </ul>
             </div>
-        
+
             <h3 class="resume-title">Education</h3>
             <div class="resume-item">
               <h4>Master of Science - Applied Artificial Intelligence</h4>
-              <h5>August 2024 - Present</h5>
+              <h5>August 2024 - May 2026</h5>
               <p><em>Stevens Institute of Technology, Hoboken, New Jersey, USA</em></p>
               <p>GPA - 3.8/4.0</p>
               <p>Coursework: Machine Learning, Deep Learning, Natural Language Processing, Computer Vision</p>
@@ -131,7 +271,7 @@
               <p><em>IEEE PuneCon 2023</em></p>
             </div>
           </div>
-        
+
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <h3 class="resume-title">Professional Experience</h3>
             <div class="resume-item">
@@ -177,89 +317,6 @@
 
       </div>
     </section><!-- End Resume Section -->
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Projects</h2>
-          <!-- <p>Magnam dolores projects commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
-        </div>
-
-        <div class="row" data-aos="fade-up">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-ML">Machine Learning</li>
-              <li data-filter=".filter-Robotics">Robotics</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-
-          <a href="#" style="text-decoration: none;">
-            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
-              <div class="portfolio-wrap">
-                <video class="portfolio-media" src="assets/vid/gif/ProcessMonitoring.mp4#t=0.1" autoplay loop muted playsinline preload="metadata"></video>
-                <span class="video-badge">Video</span>
-              </div>
-              <div class="project-title">Manufacturing Process Monitoring</div>
-            </div>
-          </a>
-
-          <a href="ExerciseRepDetection.html" style="text-decoration: none;">
-            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
-              <div class="portfolio-wrap">
-                <video class="portfolio-media" src="assets/vid/gif/Wizio.mp4#t=0.1" autoplay loop muted playsinline preload="metadata"></video>
-                <span class="video-badge">Video</span>
-              </div>
-              <div class="project-title">Exercise Rep Detection & Form Correction System</div>
-            </div>
-          </a>
-
-          <a href="VirtualTryOn.html" style="text-decoration: none;">
-            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
-              <div class="portfolio-wrap">
-                <video class="portfolio-media" src="assets/vid/gif/Virtual_TryOn.mp4#t=0.1" autoplay loop muted playsinline preload="metadata"></video>
-                <span class="video-badge">Video</span>
-              </div>
-              <div class="project-title">Virtual Try On</div>
-            </div>
-          </a>
-
-          <a href="ANPR.html" style="text-decoration: none;">
-            <div class="col-lg-6 col-md-6 portfolio-item filter-ML">
-              <div class="portfolio-wrap">
-                <video class="portfolio-media" src="assets/vid/gif/ANPR.mp4#t=0.1" autoplay loop muted playsinline preload="metadata"></video>
-                <span class="video-badge">Video</span>
-              </div>
-              <div class="project-title">Automatic Number Plate Recognition System</div>
-            </div>
-          </a>
-
-          <a href="SingleExtruder3DPrinter.html" style="text-decoration: none;">
-            <div class="col-lg-6 col-md-6 portfolio-item filter-Robotics">
-              <div class="portfolio-wrap">
-                <img src="assets/img/Projects/SingleExtruder3DPrinter.png" class="img-fluid" alt="">
-              </div>
-              <div class="project-title">3D Printer & Filament Extruder</div>
-            </div>
-          </a>
-
-          <a href="MobileRoboticArm.html" style="text-decoration: none;">
-            <div class="col-lg-6 col-md-6 portfolio-item filter-Robotics">
-              <div class="portfolio-wrap">
-                <img src="assets/img/Projects/MobileRoboticArm.png" class="img-fluid" alt="">
-              </div>
-              <div class="project-title">Mobile Robotic Arm</div>
-            </div>
-          </a>
-
-        </div>
-      </div>
-    </section><!-- End Portfolio Section -->
 
   </main>
 

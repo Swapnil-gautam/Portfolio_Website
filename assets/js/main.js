@@ -149,4 +149,35 @@
     aos_init();
   });
 
+  // Scroll progress bar
+  var progressBar = document.getElementById('scroll-progress');
+  if (progressBar) {
+    var updateProgress = function() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = pct + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  }
+
+  // Subtle parallax on hero orbs following the cursor
+  var hero = document.getElementById('hero');
+  if (hero && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var orbs = hero.querySelectorAll('.hero-orb');
+    hero.addEventListener('mousemove', function(e) {
+      var rect = hero.getBoundingClientRect();
+      var cx = (e.clientX - rect.left) / rect.width - 0.5;
+      var cy = (e.clientY - rect.top) / rect.height - 0.5;
+      orbs.forEach(function(orb, i) {
+        var depth = (i + 1) * 14;
+        orb.style.transform = 'translate(' + (cx * depth) + 'px,' + (cy * depth) + 'px)';
+      });
+    });
+    hero.addEventListener('mouseleave', function() {
+      orbs.forEach(function(orb) { orb.style.transform = ''; });
+    });
+  }
+
 })(jQuery);
