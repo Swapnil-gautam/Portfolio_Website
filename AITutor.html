@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', serif;
+      color: #333;
+      background: #f4f4f4;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1a1a2e;
+      padding: 12px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .logo-text {
+      font-family: 'Candal', sans-serif;
+      color: #e0e0e0;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    .nav { list-style: none; display: flex; gap: 20px; }
+    .nav a { color: #ccc; text-decoration: none; font-family: 'Candal', sans-serif; font-size: 0.85rem; }
+    .nav a:hover { color: #00d4aa; }
+    .menu-toggle { color: #ccc; font-size: 1.2rem; display: none; cursor: pointer; }
+
+    /* Page wrapper */
+    .page-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+    .content.clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Main content */
+    .main-content-wrapper { float: left; width: 70%; padding-right: 30px; }
+    .main-content { background: #fff; padding: 30px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+    .post-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.8rem;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+      border-left: 5px solid #00d4aa;
+      padding-left: 14px;
+      line-height: 1.3;
+    }
+
+    .post-content h2 {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.15rem;
+      color: #1a1a2e;
+      margin: 28px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #00d4aa;
+      display: inline-block;
+    }
+
+    .post-content p {
+      line-height: 1.8;
+      margin-bottom: 14px;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content ol, .post-content ul {
+      margin: 12px 0 16px 22px;
+      line-height: 1.9;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content img {
+      max-width: 100%;
+      border-radius: 4px;
+      margin: 14px 0;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Pipeline visual */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 22px 0;
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 18px 14px;
+    }
+    .pipe-step {
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      font-family: 'Candal', sans-serif;
+      text-align: center;
+      min-width: 130px;
+      line-height: 1.4;
+    }
+    .pipe-step span {
+      display: block;
+      font-size: 0.68rem;
+      color: #00d4aa;
+      margin-top: 3px;
+      font-family: 'Lora', serif;
+    }
+    .pipe-arrow {
+      font-size: 1.3rem;
+      color: #00d4aa;
+      padding: 0 6px;
+      font-weight: bold;
+    }
+
+    /* Tech stack chips */
+    .tech-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+    .tech-chip {
+      background: #1a1a2e;
+      color: #00d4aa;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-family: 'Candal', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Sidebar */
+    .sidebar { float: right; width: 28%; }
+    .section { background: #fff; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 24px; }
+    .section-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1rem;
+      color: #1a1a2e;
+      border-bottom: 3px solid #00d4aa;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+    .section.topics ul { list-style: none; padding: 0; }
+    .section.topics ul li { border-bottom: 1px solid #f0f0f0; padding: 7px 0; }
+    .section.topics ul li a { text-decoration: none; color: #444; font-size: 0.88rem; }
+    .section.topics ul li a:hover { color: #00d4aa; }
+
+    .repo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'Candal', sans-serif;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .repo-btn:hover { background: #00d4aa; color: #1a1a2e; }
+
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Note box */
+    .note-box {
+      background: #eafaf6;
+      border-left: 4px solid #00d4aa;
+      padding: 12px 16px;
+      border-radius: 0 4px 4px 0;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: #2d6a5a;
+    }
+
+    @media (max-width: 768px) {
+      .main-content-wrapper, .sidebar { float: none; width: 100%; padding: 0; margin-bottom: 20px; }
+      .menu-toggle { display: block; }
+      .nav { display: none; }
+    }
+  </style>
+
+  <title>AI Tutor — Vision-Aware RAG for Course Materials</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <h1 class="logo-text">Swapnil Gautam</h1>
+    </div>
+    <i class="fa fa-bars menu-toggle"></i>
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="content clearfix">
+
+      <!-- Main Content -->
+      <div class="main-content-wrapper">
+        <div class="main-content single">
+          <h1 class="post-title">AI Tutor — Vision-Aware RAG for Course Materials</h1>
+
+          <!-- Demo Video -->
+          <div style="margin: 20px 0; border-radius: 6px; overflow: hidden; background: #000;">
+            <video controls autoplay muted style="width: 100%; display: block; max-height: 460px;">
+              <source src="assets/vid/ai_tutor_full.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <div class="post-content">
+
+            <div class="tech-chips">
+              <span class="tech-chip">Python</span>
+              <span class="tech-chip">Gemini 2.0 Flash</span>
+              <span class="tech-chip">RAG</span>
+              <span class="tech-chip">ChromaDB</span>
+              <span class="tech-chip">BM25 + Vector Hybrid</span>
+              <span class="tech-chip">Cross-Encoder Rerank</span>
+              <span class="tech-chip">Vision LLM</span>
+              <span class="tech-chip">FastAPI</span>
+            </div>
+
+            <h2 id="Problem-Statement">Problem Statement</h2>
+            <p>
+              Traditional RAG pipelines strip academic materials down to plain text — which throws away the
+              information that matters most in STEM: diagrams, equations, plots, and slide layouts. Students
+              asking "explain this figure" or "what did the professor mean on slide 12?" get generic answers
+              because the retrieval layer never saw the visuals in the first place.
+            </p>
+            <p>
+              I built AI Tutor to fix that: a course-aware assistant that ingests real lectures (PDFs and PowerPoints),
+              understands both their text <em>and</em> their visuals, and grounds every answer in a specific slide of a
+              specific lecture — with citations you can verify.
+            </p>
+
+            <h2 id="Approach">Approach</h2>
+            <p>
+              Most RAG demos stop at "chunk, embed, retrieve, prompt." That works for prose and breaks the moment a slide
+              is 80% diagram. AI Tutor takes a different route: pages with low text density get routed to a vision LLM
+              (Gemini 2.0 Flash) that generates a rich textual description of what's on the slide — the axes of a plot,
+              the arrows in an architecture diagram, the terms in an equation. Those descriptions become first-class
+              retrievable chunks alongside the extracted text.
+            </p>
+            <p>
+              Retrieval is hybrid by design. BM25 catches exact technical terms ("softmax", "L1 regularization",
+              proper nouns) that dense embeddings often smear together. Vector search catches paraphrases and
+              conceptual similarity. Both ranked lists are fused with Reciprocal Rank Fusion, then a cross-encoder
+              reranker sharpens the top candidates before they reach the LLM. Every generated answer cites its
+              sources as <code>[Lecture X, Slide Y]</code>.
+            </p>
+
+            <div class="note-box">
+              🎯 <strong>Design goal:</strong> A student should never get a confident answer the system can't back up
+              with a specific slide. Grounding &gt; fluency.
+            </div>
+
+            <h2 id="Pipeline">Ingestion & Retrieval Pipeline</h2>
+
+            <div class="pipeline">
+              <div class="pipe-step">Upload<span>PDF / PPTX</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Extract<span>Marker + python-pptx</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Vision Pass<span>Gemini on visual slides</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Summarize<span>Lecture + Cross-Lecture</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Index<span>ChromaDB + SQLite</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Retrieve<span>BM25 + Vector + RRF + Rerank</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Generate<span>Tutor / Quiz</span></div>
+            </div>
+
+            <h2 id="Solution">What the System Delivers</h2>
+            <ol>
+              <li>
+                <strong>Vision-aware ingestion.</strong> PDFs are parsed with Marker (LaTeX preserved), PowerPoints
+                with python-pptx. Each page is also rendered to an image; pages with low text density are handed to
+                Gemini Vision, which generates a descriptive caption. Text and vision captions are chunked and
+                embedded together.
+              </li>
+              <li>
+                <strong>Hierarchical summarization.</strong> Each lecture gets a lecture-level summary. Related
+                lectures are further summarized into cross-lecture topic summaries, so the retriever can answer
+                "how does this connect to last week's material?" without pulling every raw chunk.
+              </li>
+              <li>
+                <strong>Hybrid retrieval with reranking.</strong> BM25 and vector search run in parallel, their
+                rankings merged via Reciprocal Rank Fusion, and a cross-encoder reranks the top candidates before
+                anything reaches the LLM.
+              </li>
+              <li>
+                <strong>Grounded tutor answers.</strong> Gemini generates responses constrained to retrieved
+                context, and every claim carries a <code>[Lecture X, Slide Y]</code> citation the student can click
+                back to.
+              </li>
+              <li>
+                <strong>Quiz generator.</strong> The same retrieval pipeline powers automatic MCQ and short-answer
+                quiz generation, with a validation step that checks each question against source slides and
+                guarantees coverage across the selected lectures.
+              </li>
+            </ol>
+
+            <h2 id="Challenges">Challenges</h2>
+            <p>
+              <strong>Slide-heavy content breaks naive chunking.</strong> A single slide can contain a title, a
+              diagram, and three bullet points that only make sense together. I ended up preserving slide boundaries
+              as the smallest retrieval unit rather than splitting by token count — losing some density but
+              dramatically improving citation precision.
+            </p>
+            <p>
+              <strong>Deciding when to invoke vision was a cost/quality tradeoff.</strong> Sending every page to a
+              vision model would be expensive and slow. I use a text-density heuristic: pages below a threshold get
+              a Gemini vision pass; pages with dense prose stay text-only. This keeps ingestion costs bounded while
+              still capturing the diagrams that actually matter.
+            </p>
+            <p>
+              <strong>Hybrid retrieval tuning.</strong> BM25 alone over-privileged rare-but-irrelevant technical
+              tokens; vector search alone lost precision on exact terminology. RRF was the right merger — parameter-free
+              and robust — but I still needed the cross-encoder to fix the top-3, which was where the LLM was most
+              sensitive to ranking noise.
+            </p>
+            <p>
+              <strong>Preventing hallucinated citations.</strong> Even with retrieval-grounded prompts, LLMs will
+              occasionally invent slide numbers. I added a post-generation validator that checks every citation in
+              the answer against the retrieved chunks; anything that doesn't match gets stripped before the answer
+              reaches the user.
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <!-- // Main Content -->
+
+      <!-- Sidebar -->
+      <div class="sidebar single">
+
+        <div class="section">
+          <h2 class="section-title">Repository</h2>
+          <a class="repo-btn" href="https://github.com/Swapnil-gautam/ai-tutor" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+            <span>View on GitHub</span>
+          </a>
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Contents</h2>
+          <ul>
+            <li><a href="#Problem-Statement">Problem Statement</a></li>
+            <li><a href="#Approach">Approach</a></li>
+            <li><a href="#Pipeline">Ingestion & Retrieval Pipeline</a></li>
+            <li><a href="#Solution">What the System Delivers</a></li>
+            <li><a href="#Challenges">Challenges</a></li>
+          </ul>
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Other Projects</h2>
+          <ul>
+            <li><a href="ExerciseRepDetection.html">Exercise Rep Detection</a></li>
+            <li><a href="VirtualTryOn.html">Virtual Try On</a></li>
+            <li><a href="ANPR.html">ANPR — Number Plate Recognition</a></li>
+            <li><a href="MobileRoboticArm.html">Mobile Robotic Arm</a></li>
+            <li><a href="SingleExtruder3DPrinter.html">3D Printer & Filament Extruder</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- // Sidebar -->
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>

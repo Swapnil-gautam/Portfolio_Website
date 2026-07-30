@@ -1,0 +1,10 @@
+# Full-resolution originals of the About photos. The site loads only the
+# resized copies in myimgs/web/, so the multi-megabyte originals stay out of
+# git — keep your own backup of them.
+assets/img/myimgs/*
+!assets/img/myimgs/web/
+
+# OS / editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
