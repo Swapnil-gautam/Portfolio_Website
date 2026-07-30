@@ -61,16 +61,19 @@ window.SITE = {
       "I enjoy building AI systems that move from research ideas to real products. My work sits at the intersection of computer vision, deep learning, generative AI, and edge deployment, and I like solving problems where model quality, product thinking, and real-world constraints all matter.",
       "Over 5+ years I've taken models from notebooks to production — running YOLO and PaddleOCR on factory edge devices, shipping on-device pose estimation in a mobile physiotherapy app, and replacing third-party vision APIs with models trained in-house. Outside of shipping ML systems, I'm especially drawn to robotics and applied AI projects that turn ambitious ideas into something people can actually use."
     ],
-    /* Cross-fades through these in order, one every 4.2s.
-       These are web-sized copies (max 1200px, EXIF rotation applied) generated
-       from the full-resolution originals in ../assets/img/myimgs/ — 18.4MB of
-       phone photos down to 1.2MB. Regenerate if you add more. */
+    /* Cross-fades through these in array order, 8s on each, then loops.
+       Filenames are numbered to match that order — to reshuffle, rename the
+       originals in ../assets/img/myimgs/ and regenerate.
+
+       These are web-sized copies (max 1200px, EXIF rotation baked in) built
+       from the full-resolution originals: 13.4MB of phone photos down to
+       0.8MB. The originals are gitignored. */
     images: [
-      "../assets/img/myimgs/web/img20211016141749.jpg",
-      "../assets/img/myimgs/web/img_5077.jpg",
-      "../assets/img/myimgs/web/img_1605.jpg",
-      "../assets/img/myimgs/web/img_7862.jpg",
-      "../assets/img/myimgs/web/img_1821.jpg"
+      "../assets/img/myimgs/web/1.jpg",
+      "../assets/img/myimgs/web/2.jpg",
+      "../assets/img/myimgs/web/3.jpg",
+      "../assets/img/myimgs/web/4.jpg",
+      "../assets/img/myimgs/web/5.jpg"
     ]
   },
 
