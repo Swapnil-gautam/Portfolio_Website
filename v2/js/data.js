@@ -176,7 +176,7 @@ window.SITE = {
       category: "Machine Learning",
       description:
         "Retrieval-augmented tutor over lecture material that reads diagrams and slides as well as text, combining hybrid search over ChromaDB with Gemini for grounded answers.",
-      media: { type: "image", src: "../assets/vid/gif/ai_tutor.gif" },
+      media: { type: "video", src: "../assets/vid/ai_tutor_full.mp4" },
       tags: ["Gemini", "RAG", "ChromaDB", "Hybrid Search"],
       caseStudy: "../AITutor.html"
     },

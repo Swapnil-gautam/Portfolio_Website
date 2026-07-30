@@ -1059,11 +1059,6 @@ a.timeline-item__subtitle:hover {
   transition: transform 500ms ease;
 }
 
-/* Images only — videos stay in full colour. */
-.project-card__media img {
-  filter: var(--image-grade);
-}
-
 .project-card:hover .project-card__media img,
 .project-card:hover .project-card__media video {
   transform: scale(1.05);

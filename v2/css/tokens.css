@@ -23,9 +23,9 @@
   --ring: 240 5.9% 10%;
   --radius: 0.5rem;
 
-  /* Black-and-white grading applied to photos (About gallery, project card
-     stills). Videos are not graded. Set to `none` to go back to full colour —
-     this is the only switch. */
+  /* Black-and-white grading for the About gallery photos. Project cards are
+     not graded — they show their media in full colour. Set to `none` to drop
+     the grading entirely. */
   --image-grade: grayscale(1) contrast(1.05) brightness(1.02);
 
   /* Grainient palette — same pale / deep / mid relationship as the reference,
