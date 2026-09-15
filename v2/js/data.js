@@ -172,6 +172,14 @@ window.SITE = {
       tags: ["YOLO", "PaddleOCR", "MQTT", "Edge"]
     },
     {
+      title: "SKU-Agnostic Inventory Monitoring",
+      category: "Machine Learning",
+      description:
+        "Video-based inventory tracking that works for any product. SKUs are onboarded as reference embeddings, then identified by segmenting frames, keeping size-filtered blobs and matching their embeddings by cosine similarity — no retraining for new SKUs.",
+      media: { type: "video", src: "../assets/vid/gif/InventoryMonitoring.mp4" },
+      tags: ["Segmentation", "Embeddings", "Cosine Similarity", "SKU-Agnostic"]
+    },
+    {
       title: "AI Tutor — Vision-Aware RAG for Course Materials",
       category: "Machine Learning",
       description:
