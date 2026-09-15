@@ -180,6 +180,14 @@ window.SITE = {
       tags: ["Segmentation", "Embeddings", "Cosine Similarity", "SKU-Agnostic"]
     },
     {
+      title: "Naina — NYC 311 Complaints Checker",
+      category: "Machine Learning",
+      description:
+        "Agent that checks whether NYC 311 complaints are still true using live traffic cameras. Recovered headings for 234 of Manhattan's 373 cameras via OCR and DINO embedding matching, keeps only cameras facing the incident, then Gemini rules on the live frame.",
+      media: { type: "video", src: "../assets/vid/gif/NYC311ComplaintsChecker.mp4" },
+      tags: ["Gemini", "YOLOv8", "DINO", "Cloud Run", "FastAPI"]
+    },
+    {
       title: "AI Tutor — Vision-Aware RAG for Course Materials",
       category: "Machine Learning",
       description:
