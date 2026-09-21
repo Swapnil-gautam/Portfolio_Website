@@ -194,7 +194,7 @@
     }
   </style>
 
-  <title>SKU-Agnostic Inventory Monitoring — Segment, Embed, Match</title>
+  <title>Reconstructing My Apartment in 3D with VGGT-SLAM</title>
 </head>
 
 <body>
@@ -215,12 +215,12 @@
       <!-- Main Content -->
       <div class="main-content-wrapper">
         <div class="main-content single">
-          <h1 class="post-title">SKU-Agnostic Inventory Monitoring — Segment, Embed, Match</h1>
+          <h1 class="post-title">Reconstructing My Apartment in 3D with VGGT-SLAM</h1>
 
           <!-- Demo Video -->
           <div style="margin: 20px 0; border-radius: 6px; overflow: hidden; background: #000;">
             <video controls autoplay muted loop playsinline style="width: 100%; display: block; max-height: 460px;">
-              <source src="assets/vid/gif/InventoryMonitoringFull.mp4" type="video/mp4">
+              <source src="assets/vid/gif/VGGTSlamApartment.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -228,119 +228,109 @@
           <div class="post-content">
 
             <div class="tech-chips">
-              <span class="tech-chip">SAM</span>
-              <span class="tech-chip">DINO Embeddings</span>
-              <span class="tech-chip">Cosine Similarity</span>
-              <span class="tech-chip">Blob Filtering</span>
-              <span class="tech-chip">Zero-Training Onboarding</span>
-              <span class="tech-chip">Video Pipeline</span>
+              <span class="tech-chip">VGGT-SLAM</span>
+              <span class="tech-chip">Monocular SLAM</span>
+              <span class="tech-chip">Dense Reconstruction</span>
+              <span class="tech-chip">Loop Closure</span>
+              <span class="tech-chip">Submap Alignment</span>
+              <span class="tech-chip">Phone Video</span>
             </div>
 
-            <h2 id="Problem-Statement">Problem Statement</h2>
+            <h2 id="Premise">The Premise</h2>
             <p>
-              A detector trained to recognise products is trained to recognise <em>those</em> products. The moment the
-              catalogue changes — a new line, a new supplier, a seasonal item, a repackaged box — the model is behind,
-              and catching up means collecting images, labelling them, retraining and redeploying. Inventory does not
-              wait for that cycle, and a system that needs it is permanently out of date.
+              I was moving out. Instead of taking a last photo of the place, I wanted the whole apartment as
+              geometry — something you can fly a camera through rather than look at from one angle.
             </p>
             <p>
-              At Aethrellegence I built the opposite property into the system: adding a SKU is an act of registration,
-              not an act of training. Nothing in the vision pipeline is ever trained on the products it will be asked
-              about.
+              The constraint I set was to use nothing but what was in my pocket: one phone video, walked through the
+              rooms. No LiDAR, no depth sensor, no calibration target, no photogrammetry turntable ritual. If it
+              needed equipment, it did not count.
             </p>
 
-            <h2 id="Approach">Approach</h2>
+            <h2 id="Method">Why VGGT-SLAM</h2>
             <p>
-              The way out is to split the problem in two. Finding <em>a</em> product in a frame is a generic visual
-              task, shared across every SKU. Deciding <em>which</em> product it is, is a lookup. Once the problem is
-              cut that way, both halves can be solved with foundation models that were never shown the catalogue:
-              SAM proposes the regions, DINO describes them, and cosine similarity does the identifying.
+              <a href="https://github.com/MIT-SPARK/VGGT-SLAM" target="_blank" rel="noopener noreferrer">VGGT-SLAM</a>
+              (MIT-SPARK) is dense RGB SLAM built on VGGT, the feed-forward geometry transformer. Rather than
+              tracking sparse features and triangulating over time, it predicts dense geometry for chunks of frames
+              directly, builds the scene as a series of <strong>submaps</strong>, and stitches them together —
+              optimising the alignment on the SL(4) manifold, so the submaps are related by homographies rather than
+              rigid transforms. It takes ordinary monocular video, which is exactly the input I had.
+            </p>
+
+            <h2 id="Attempt">First Attempt: 60 Seconds of Footage</h2>
+            <p>
+              I started with the first minute of the walkthrough, on the reasonable assumption that a shorter clip
+              would be a faster way to find out whether this would work at all.
             </p>
             <p>
-              That is what makes the system SKU-agnostic in a strict sense. There are no product classes anywhere in
-              the model stack. The catalogue lives as a set of reference embeddings — data the system reads at match
-              time, not weights baked in at training time — so it can be extended or pruned while the pipeline keeps
-              running untouched.
+              The result was junk. <strong>Floating slabs</strong> — fragments of wall and floor hanging in space at
+              plausible-looking angles that did not join into anything. Not a bad reconstruction of a room; not a
+              room at all.
             </p>
 
             <div class="note-box">
-              🎯 <strong>Design goal:</strong> onboarding a new SKU is registering its embeddings — no dataset, no
-              labelling, no retraining, no redeploy.
+              🎯 <strong>The instinct to debug the model was wrong.</strong> Nothing was wrong with the geometry
+              prediction. The problem was that the clip never gave the system a chance to recognise where it had
+              already been.
             </div>
 
-            <h2 id="Onboarding">Onboarding a SKU</h2>
+            <h2 id="Fix">What Fixed It: The Full Three Minutes</h2>
             <p>
-              Registering a product means filming it, not labelling it: the item is turned in front of the
-              camera so the catalogue sees it from every side rather than from one canonical photo. Each frame
-              then has its background removed before anything is embedded.
+              I fed in the complete three-minute video — the same footage, same camera, same apartment, just not
+              truncated. It snapped into an actual floor plan.
             </p>
             <p>
-              That step matters more than it looks. An embedding describes everything in the crop, so a
-              reference taken straight from the aisle encodes the shelf, the neighbouring packets and the
-              lighting of that spot along with the product. Match against it later and part of the similarity
-              score is agreement about the <em>background</em> — which is exactly the thing that will be
-              different when the same item turns up in a different store, on a different shelf. Cutting the
-              object out first keeps the reference about the product.
+              The difference was <strong>loop closures</strong>:
+            </p>
+            <ul>
+              <li><strong>1-minute clip:</strong> 2 loop closures.</li>
+              <li><strong>Full clip:</strong> 10 loop closures.</li>
+            </ul>
+            <p>
+              Walking past the same hallway a second time is what does it. When the system recognises a place it has
+              already mapped, that recognition becomes a constraint, and the optimiser can pull everything either
+              side of it back into agreement — in this run, <strong>39 drifting submaps</strong> dragged back into
+              alignment. That is the step that turned debris into a map.
             </p>
             <p>
-              The clip above walks through it end to end: onboarding, the background falling away as the sweep
-              passes, then detection and matching on the shelf.
-            </p>
-
-            <h2 id="Pipeline">Two Stages: Find, Then Identify</h2>
-
-            <div class="pipeline">
-              <div class="pipe-step">Onboard<span>background-free SKU crops</span></div>
-              <div class="pipe-arrow">&#8594;</div>
-              <div class="pipe-step">Segment<span>SAM</span></div>
-              <div class="pipe-arrow">&#8594;</div>
-              <div class="pipe-step">Filter Blobs<span>plausible item sizes</span></div>
-              <div class="pipe-arrow">&#8594;</div>
-              <div class="pipe-step">Embed<span>DINO, one vector per blob</span></div>
-              <div class="pipe-arrow">&#8594;</div>
-              <div class="pipe-step">Match<span>cosine similarity &#8805; 0.93</span></div>
-              <div class="pipe-arrow">&#8594;</div>
-              <div class="pipe-step">Count<span>inventory state</span></div>
-            </div>
-
-            <p>
-              <strong>Stage one — SAM, then a size filter.</strong> SAM segments anything, which is exactly the
-              property that makes it usable here and exactly what makes its raw output noisy: shelf edges,
-              reflections, hands, floor texture and shadow all come back as masks alongside the products. The size
-              filter is what turns that into a candidate list. Blobs outside the plausible area range for an item are
-              dropped before anything expensive happens, so the identification stage only ever sees credible regions.
-            </p>
-            <p>
-              <strong>Stage two — DINO embeddings and cosine matching.</strong> Each surviving blob is embedded with
-              DINO and compared against the onboarded reference embeddings. DINO is a good fit because its
-              self-supervised features separate objects by appearance without any notion of a label, which is what
-              lets an unseen product be described meaningfully the first time it is registered.
-            </p>
-            <p>
-              Matching accepts a SKU at a cosine similarity of roughly <strong>0.93 and above</strong>. That is a
-              deliberately strict bar: packaging across a product family often differs by little more than a flavour
-              band or a colour, and a loose threshold turns those into confident mislabels. Anything below the bar is
-              reported as unidentified rather than forced into the nearest class, which keeps an unregistered item
-              visible as a gap to fill instead of silently inflating another count.
+              The lesson generalises beyond this project: with drift-prone reconstruction, a longer capture is not
+              merely more data, it is more <em>constraints</em>. Trimming the clip to iterate faster removed the
+              exact thing the method depends on.
             </p>
 
-            <h2 id="Solution">What the System Delivers</h2>
+            <h2 id="Limits">What Still Does Not Work</h2>
+            <p>
+              <strong>I panned more than I walked.</strong> Sweeping the phone around from a standing position
+              produces rotation without translation, and rotation alone carries no parallax — nothing for the
+              geometry to triangulate against. The areas I captured by turning on the spot are the weakest parts of
+              the reconstruction. A slower walk covering the same ground would beat a fast pan every time.
+            </p>
+            <p>
+              <strong>Monocular means no absolute scale.</strong> The reconstruction is correct in shape and
+              proportion but it is not measurable: nothing in a single RGB stream establishes what one unit is in
+              metres. To get metric scale you have to bring something in from outside — a known object in frame, IMU
+              data, or a stereo pair. As it stands it is the right apartment, just not one you could order furniture
+              from.
+            </p>
+
+            <h2 id="Takeaways">Takeaways</h2>
             <ol>
               <li>
-                <strong>New SKUs without retraining.</strong> Onboarding stores reference embeddings. The models,
-                thresholds and deployment stay exactly as they were.
+                <strong>Capture quality decides the result more than the model does.</strong> Same model, same
+                scene, same phone — the only variable was how much of the walk it was given, and it was the
+                difference between debris and a floor plan.
               </li>
               <li>
-                <strong>No product classes in the model stack.</strong> SAM and DINO are both used off the shelf, so
-                the catalogue is configuration rather than a training artefact.
+                <strong>Revisit your path on purpose.</strong> Loop closures are not a bonus; they are the mechanism
+                that holds a long capture together. Walking the hallway twice is a deliberate act of data collection.
               </li>
               <li>
-                <strong>Cheap rejection before expensive inference.</strong> Size filtering discards implausible SAM
-                masks before embedding, keeping the matching stage focused.
+                <strong>Translate, do not pan.</strong> Parallax is what monocular reconstruction eats. A phone
+                rotating on the spot supplies almost none of it.
               </li>
               <li>
-                <strong>Honest unknowns.</strong> A blob below 0.93 similarity stays unidentified, instead of being
-                absorbed into the closest SKU.
+                <strong>Know which properties you are not getting.</strong> Shape without scale is still useful, as
+                long as nobody downstream assumes the units mean something.
               </li>
             </ol>
 
@@ -353,21 +343,26 @@
       <div class="sidebar single">
 
         <div class="section">
-          <h2 class="section-title">Built At</h2>
-          <p style="font-size: 0.9rem; line-height: 1.7; color: #444;">
-            <strong style="color: #1a1a2e;">Aethrellegence</strong><br>
-            Computer Vision
+          <h2 class="section-title">Links</h2>
+          <a class="repo-btn" href="https://github.com/MIT-SPARK/VGGT-SLAM" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-github"></i>
+            <span>VGGT-SLAM</span>
+          </a>
+          <p style="font-size: 0.85rem; line-height: 1.7; color: #444; margin-top: 12px;">
+            <a href="https://x.com/swapnilgtm/status/2083658924167774514" target="_blank" rel="noopener noreferrer"
+               style="color: #1a1a2e; font-weight: bold; text-decoration: none;">The original thread &#8594;</a>
           </p>
         </div>
 
         <div class="section topics">
           <h2 class="section-title">Contents</h2>
           <ul>
-            <li><a href="#Problem-Statement">Problem Statement</a></li>
-            <li><a href="#Approach">Approach</a></li>
-            <li><a href="#Onboarding">Onboarding a SKU</a></li>
-            <li><a href="#Pipeline">Two Stages: Find, Then Identify</a></li>
-            <li><a href="#Solution">What the System Delivers</a></li>
+            <li><a href="#Premise">The Premise</a></li>
+            <li><a href="#Method">Why VGGT-SLAM</a></li>
+            <li><a href="#Attempt">First Attempt: 60 Seconds</a></li>
+            <li><a href="#Fix">What Fixed It</a></li>
+            <li><a href="#Limits">What Still Does Not Work</a></li>
+            <li><a href="#Takeaways">Takeaways</a></li>
           </ul>
         </div>
 
@@ -375,6 +370,8 @@
           <h2 class="section-title">Other Projects</h2>
           <ul>
             <li><a href="ManufacturingProcessMonitoring.html">Manufacturing Process Monitoring</a></li>
+            <li><a href="CNCHMIMonitoring.html">CNC HMI Monitoring</a></li>
+            <li><a href="InventoryMonitoring.html">SKU-Agnostic Inventory Monitoring</a></li>
             <li><a href="LaserCottonSeparation.html">Laser Cutting — Cotton Separation</a></li>
             <li><a href="AITutor.html">AI Tutor — Vision-Aware RAG</a></li>
             <li><a href="ExerciseRepDetection.html">Exercise Rep Detection</a></li>

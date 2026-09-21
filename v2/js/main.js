@@ -793,6 +793,105 @@
     });
   }
 
+  /* ---------------------------------------------------------------- lightbox */
+
+  /**
+   * Click a card's video or GIF to view it large over a dimmed backdrop.
+   * Built here rather than in the markup so it also covers cards that are
+   * re-rendered by the category filter. Mirrors the resume modal: Escape
+   * closes, the page behind stops scrolling, focus returns where it started.
+   */
+  function initLightbox() {
+    var overlay = document.createElement("div");
+    var lastFocused = null;
+    var paused = [];
+
+    overlay.className = "lightbox";
+    overlay.hidden = true;
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.innerHTML =
+      '<button type="button" class="lightbox__close" aria-label="Close">&times;</button>' +
+      '<figure class="lightbox__figure">' +
+        '<div class="lightbox__stage"></div>' +
+        '<figcaption class="lightbox__caption"></figcaption>' +
+      "</figure>";
+    document.body.appendChild(overlay);
+
+    var stage = $(".lightbox__stage", overlay);
+    var caption = $(".lightbox__caption", overlay);
+
+    function open(media, title) {
+      var node;
+
+      if (media.tagName === "VIDEO") {
+        // currentSrc is empty until the observer attaches the clip, so fall
+        // back to data-src; the #t=0.1 poster fragment is not wanted here.
+        var src = (media.currentSrc || media.getAttribute("data-src") || "").split("#")[0];
+        if (!src) return;
+        node = document.createElement("video");
+        node.src = src;
+        node.controls = true;
+        node.autoplay = true;
+        node.loop = true;
+        node.muted = true;          // browsers block autoplay with sound
+        node.playsInline = true;
+      } else {
+        node = document.createElement("img");
+        node.src = media.currentSrc || media.src;
+        node.alt = media.alt || title;
+      }
+
+      stage.innerHTML = "";
+      stage.appendChild(node);
+      caption.textContent = title || "";
+
+      // Nothing behind the backdrop needs to keep decoding frames.
+      paused = $$(".project-card video").filter(function (video) {
+        if (video.paused) return false;
+        video.pause();
+        return true;
+      });
+
+      lastFocused = document.activeElement;
+      overlay.hidden = false;
+      document.body.style.overflow = "hidden";
+      $(".lightbox__close", overlay).focus();
+    }
+
+    function close() {
+      if (overlay.hidden) return;
+      overlay.hidden = true;
+      stage.innerHTML = "";        // stops playback and frees the decoder
+      document.body.style.overflow = "";
+      paused.forEach(function (video) {
+        var play = video.play();
+        if (play && play.catch) play.catch(function () {});
+      });
+      paused = [];
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    document.addEventListener("click", function (event) {
+      var media = event.target.closest && event.target.closest(".project-card__media");
+
+      if (media) {
+        var node = $("video", media) || $("img", media);
+        var card = media.closest(".project-card");
+        var heading = card && $("h3", card);
+        if (node) open(node, heading ? heading.textContent : "");
+        return;
+      }
+
+      // Anywhere outside the media itself closes, including the backdrop.
+      if (!overlay.hidden && !event.target.closest(".lightbox__stage")) close();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") close();
+    });
+  }
+
   /* -------------------------------------------------------------------- boot */
 
   function init() {
@@ -810,6 +909,7 @@
     initTechStack();
     initContact();
     initResume();
+    initLightbox();
     initNav();
 
     // Register after every section is in the DOM so nothing is missed.

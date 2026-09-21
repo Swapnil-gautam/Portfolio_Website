@@ -186,17 +186,26 @@ window.SITE = {
       category: "Machine Learning",
       description:
         "Video-based inventory tracking that works for any product. SAM segments each frame, size-filtered blobs are embedded with DINO, and cosine similarity above 0.93 matches them to SKUs onboarded as reference embeddings — no retraining, no product classes.",
-      media: { type: "video", src: "../assets/vid/gif/InventoryMonitoring.mp4" },
+      media: { type: "video", src: "../assets/vid/gif/InventoryMonitoringFull.mp4" },
       tags: ["SAM", "DINO", "Cosine Similarity", "SKU-Agnostic"],
       caseStudy: "../InventoryMonitoring.html"
     },
     {
-      title: "Naina — NYC 311 Complaints Checker",
+      title: "Apartment Reconstructed in 3D with VGGT-SLAM",
       category: "Machine Learning",
       description:
-        "Agent that checks whether NYC 311 complaints are still true using live traffic cameras. Recovered headings for 234 of Manhattan's 373 cameras via OCR and DINO embedding matching, keeps only cameras facing the incident, then Gemini rules on the live frame.",
-      media: { type: "video", src: "../assets/vid/gif/NYC311ComplaintsChecker.mp4" },
-      tags: ["Gemini", "YOLOv8", "DINO", "Cloud Run", "FastAPI"]
+        "Rather than take a last photo before moving out, I reconstructed the whole apartment in 3D from a single phone walkthrough. VGGT-SLAM recovers dense geometry and camera poses feed-forward from ordinary video — no LiDAR, no depth sensor, no calibration.",
+      media: { type: "video", src: "../assets/vid/gif/VGGTSlamApartment.mp4" },
+      tags: ["VGGT", "SLAM", "3D Reconstruction", "Monocular"],
+      caseStudy: "../VGGTSlamApartment.html"
+    },
+    {
+      title: "Dynamic Pricing for Airbnb Listings",
+      category: "Machine Learning",
+      description:
+        "Pricing engine that re-scores every listing nightly instead of leaving a flat rate in place. It estimates booking probability at each candidate price from lead time, day of week, local events, the competitor set and seasonality, then picks the price that maximises expected revenue.",
+      media: { type: "image", src: "../assets/img/Projects/dynamic_pricing_dashboard.jpg" },
+      tags: ["Demand Forecasting", "Price Optimisation", "Time Series", "Dashboard"]
     },
     {
       title: "Laser Cutting — Cotton Separation",
@@ -217,6 +226,15 @@ window.SITE = {
       caseStudy: "../AITutor.html"
     },
     {
+      title: "Mobile Robotic Arm",
+      category: "Robotics",
+      description:
+        "Scalable mobile manipulator pairing a driven base with a multi-DOF arm, covering kinematics and control. Published at IEEE PuneCon 2023.",
+      media: { type: "image", src: "../assets/img/Projects/MobileRoboticArm.png" },
+      tags: ["ROS", "Kinematics", "IEEE Published", "Robotics"],
+      caseStudy: "../MobileRoboticArm.html"
+    },
+    {
       title: "Exercise Rep Detection & Form Correction",
       category: "Machine Learning",
       description:
@@ -224,24 +242,6 @@ window.SITE = {
       media: { type: "video", src: "../assets/vid/gif/Wizio.mp4" },
       tags: ["MediaPipe", "On-Device", "Real-time", "Mobile"],
       caseStudy: "../ExerciseRepDetection.html"
-    },
-    {
-      title: "Virtual Try On",
-      category: "Machine Learning",
-      description:
-        "Custom segmentation and hand-landmark models for virtual try-on, replacing third-party APIs and cutting inference cost by 90% through quantized ONNX deployment.",
-      media: { type: "video", src: "../assets/vid/gif/Virtual_TryOn.mp4" },
-      tags: ["Segmentation", "PyTorch", "ONNX", "Hand Landmarks"],
-      caseStudy: "../VirtualTryOn.html"
-    },
-    {
-      title: "Automatic Number Plate Recognition",
-      category: "Machine Learning",
-      description:
-        "Two-stage pipeline that detects vehicle number plates in video streams and reads them with OCR, tuned for varied lighting and plate angles.",
-      media: { type: "video", src: "../assets/vid/gif/ANPR.mp4" },
-      tags: ["YOLO", "OCR", "Detection", "OpenCV"],
-      caseStudy: "../ANPR.html"
     },
     {
       title: "3D Printer & Filament Extruder",
@@ -253,13 +253,30 @@ window.SITE = {
       caseStudy: "../SingleExtruder3DPrinter.html"
     },
     {
-      title: "Mobile Robotic Arm",
-      category: "Robotics",
+      title: "Automatic Number Plate Recognition",
+      category: "Machine Learning",
       description:
-        "Scalable mobile manipulator pairing a driven base with a multi-DOF arm, covering kinematics and control. Published at IEEE PuneCon 2023.",
-      media: { type: "image", src: "../assets/img/Projects/MobileRoboticArm.png" },
-      tags: ["ROS", "Kinematics", "IEEE Published", "Robotics"],
-      caseStudy: "../MobileRoboticArm.html"
+        "Two-stage pipeline that detects vehicle number plates in video streams and reads them with OCR, tuned for varied lighting and plate angles.",
+      media: { type: "video", src: "../assets/vid/gif/ANPR.mp4" },
+      tags: ["YOLO", "OCR", "Detection", "OpenCV"],
+      caseStudy: "../ANPR.html"
+    },
+    {
+      title: "Virtual Try On",
+      category: "Machine Learning",
+      description:
+        "Custom segmentation and hand-landmark models for virtual try-on, replacing third-party APIs and cutting inference cost by 90% through quantized ONNX deployment.",
+      media: { type: "video", src: "../assets/vid/gif/Virtual_TryOn.mp4" },
+      tags: ["Segmentation", "PyTorch", "ONNX", "Hand Landmarks"],
+      caseStudy: "../VirtualTryOn.html"
+    },
+    {
+      title: "Naina — NYC 311 Complaints Checker",
+      category: "Machine Learning",
+      description:
+        "Agent that checks whether NYC 311 complaints are still true using live traffic cameras. Recovered headings for 234 of Manhattan's 373 cameras via OCR and DINO embedding matching, keeps only cameras facing the incident, then Gemini rules on the live frame.",
+      media: { type: "video", src: "../assets/vid/gif/NYC311ComplaintsChecker.mp4" },
+      tags: ["Gemini", "YOLOv8", "DINO", "Cloud Run", "FastAPI"]
     }
   ],
 
