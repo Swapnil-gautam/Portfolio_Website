@@ -444,7 +444,7 @@
 
     return (
       '<article class="project-card" data-category="' + esc(project.category) + '"' +
-      ' style="animation-delay:' + (index % 4) * 100 + 'ms">' +
+      ' style="animation-delay:' + (index % 3) * 100 + 'ms">' +
         '<div class="project-card__media">' + media + "</div>" +
         '<div class="project-card__body">' +
           "<h3>" + esc(project.title) + "</h3>" +

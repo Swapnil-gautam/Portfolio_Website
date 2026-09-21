@@ -169,15 +169,26 @@ window.SITE = {
       description:
         "Computer vision system tracking CNC machine states and reading HMI screen text on edge devices, streaming utilization data over MQTT to lift OEE to 86.7%.",
       media: { type: "video", src: "../assets/vid/gif/ProcessMonitoring.mp4" },
-      tags: ["YOLO", "PaddleOCR", "MQTT", "Edge"]
+      tags: ["YOLOv12", "PaddleOCR", "Jetson Orin Nano", "MQTT"],
+      caseStudy: "../ManufacturingProcessMonitoring.html"
+    },
+    {
+      title: "CNC HMI Monitoring — Camera as the Missing API",
+      category: "Machine Learning",
+      description:
+        "Telemetry from legacy CNCs that publish nothing and have no API. A camera over the operator panel crops the HMI screen, corrects its perspective, and OCR parses the fields into structured values published over MQTT.",
+      media: { type: "image", src: "../assets/img/Projects/cnc_hmi_ocr.gif" },
+      tags: ["PaddleOCR", "Perspective Correction", "Jetson Orin Nano", "MQTT"],
+      caseStudy: "../CNCHMIMonitoring.html"
     },
     {
       title: "SKU-Agnostic Inventory Monitoring",
       category: "Machine Learning",
       description:
-        "Video-based inventory tracking that works for any product. SKUs are onboarded as reference embeddings, then identified by segmenting frames, keeping size-filtered blobs and matching their embeddings by cosine similarity — no retraining for new SKUs.",
+        "Video-based inventory tracking that works for any product. SAM segments each frame, size-filtered blobs are embedded with DINO, and cosine similarity above 0.93 matches them to SKUs onboarded as reference embeddings — no retraining, no product classes.",
       media: { type: "video", src: "../assets/vid/gif/InventoryMonitoring.mp4" },
-      tags: ["Segmentation", "Embeddings", "Cosine Similarity", "SKU-Agnostic"]
+      tags: ["SAM", "DINO", "Cosine Similarity", "SKU-Agnostic"],
+      caseStudy: "../InventoryMonitoring.html"
     },
     {
       title: "Naina — NYC 311 Complaints Checker",
@@ -186,6 +197,15 @@ window.SITE = {
         "Agent that checks whether NYC 311 complaints are still true using live traffic cameras. Recovered headings for 234 of Manhattan's 373 cameras via OCR and DINO embedding matching, keeps only cameras facing the incident, then Gemini rules on the live frame.",
       media: { type: "video", src: "../assets/vid/gif/NYC311ComplaintsChecker.mp4" },
       tags: ["Gemini", "YOLOv8", "DINO", "Cloud Run", "FastAPI"]
+    },
+    {
+      title: "Laser Cutting — Cotton Separation",
+      category: "Machine Learning",
+      description:
+        "Vision system for a laser cutter that separates recyclable cotton from garments. A segmentation model trained on our own line data finds the cotton-only blobs, and their boundaries are emitted as G-code the laser follows — replacing a manual sorting step.",
+      media: { type: "image", src: "../assets/img/Projects/laser_cotton_card.gif" },
+      tags: ["Segmentation", "Edge Detection", "G-code", "Custom Dataset"],
+      caseStudy: "../LaserCottonSeparation.html"
     },
     {
       title: "AI Tutor — Vision-Aware RAG for Course Materials",

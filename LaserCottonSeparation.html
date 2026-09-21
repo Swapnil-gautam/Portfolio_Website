@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', serif;
+      color: #333;
+      background: #f4f4f4;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1a1a2e;
+      padding: 12px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .logo-text {
+      font-family: 'Candal', sans-serif;
+      color: #e0e0e0;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    .nav { list-style: none; display: flex; gap: 20px; }
+    .nav a { color: #ccc; text-decoration: none; font-family: 'Candal', sans-serif; font-size: 0.85rem; }
+    .nav a:hover { color: #00d4aa; }
+    .menu-toggle { color: #ccc; font-size: 1.2rem; display: none; cursor: pointer; }
+
+    /* Page wrapper */
+    .page-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+    .content.clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Main content */
+    .main-content-wrapper { float: left; width: 70%; padding-right: 30px; }
+    .main-content { background: #fff; padding: 30px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+    .post-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.8rem;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+      border-left: 5px solid #00d4aa;
+      padding-left: 14px;
+      line-height: 1.3;
+    }
+
+    .post-content h2 {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.15rem;
+      color: #1a1a2e;
+      margin: 28px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #00d4aa;
+      display: inline-block;
+    }
+
+    .post-content p {
+      line-height: 1.8;
+      margin-bottom: 14px;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content ol, .post-content ul {
+      margin: 12px 0 16px 22px;
+      line-height: 1.9;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content img {
+      max-width: 100%;
+      border-radius: 4px;
+      margin: 14px 0;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Pipeline visual */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 22px 0;
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 18px 14px;
+    }
+    .pipe-step {
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      font-family: 'Candal', sans-serif;
+      text-align: center;
+      min-width: 130px;
+      line-height: 1.4;
+    }
+    .pipe-step span {
+      display: block;
+      font-size: 0.68rem;
+      color: #00d4aa;
+      margin-top: 3px;
+      font-family: 'Lora', serif;
+    }
+    .pipe-arrow {
+      font-size: 1.3rem;
+      color: #00d4aa;
+      padding: 0 6px;
+      font-weight: bold;
+    }
+
+    /* Tech stack chips */
+    .tech-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+    .tech-chip {
+      background: #1a1a2e;
+      color: #00d4aa;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-family: 'Candal', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Sidebar */
+    .sidebar { float: right; width: 28%; }
+    .section { background: #fff; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 24px; }
+    .section-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1rem;
+      color: #1a1a2e;
+      border-bottom: 3px solid #00d4aa;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+    .section.topics ul { list-style: none; padding: 0; }
+    .section.topics ul li { border-bottom: 1px solid #f0f0f0; padding: 7px 0; }
+    .section.topics ul li a { text-decoration: none; color: #444; font-size: 0.88rem; }
+    .section.topics ul li a:hover { color: #00d4aa; }
+
+    .repo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'Candal', sans-serif;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .repo-btn:hover { background: #00d4aa; color: #1a1a2e; }
+
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Note box */
+    .note-box {
+      background: #eafaf6;
+      border-left: 4px solid #00d4aa;
+      padding: 12px 16px;
+      border-radius: 0 4px 4px 0;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: #2d6a5a;
+    }
+
+    @media (max-width: 768px) {
+      .main-content-wrapper, .sidebar { float: none; width: 100%; padding: 0; margin-bottom: 20px; }
+      .menu-toggle { display: block; }
+      .nav { display: none; }
+    }
+  </style>
+
+  <title>Laser Cutting — Cotton Separation for Textile Recycling</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <h1 class="logo-text">Swapnil Gautam</h1>
+    </div>
+    <i class="fa fa-bars menu-toggle"></i>
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="content clearfix">
+
+      <!-- Main Content -->
+      <div class="main-content-wrapper">
+        <div class="main-content single">
+          <h1 class="post-title">Laser Cutting — Cotton Separation for Textile Recycling</h1>
+
+          <!-- Pipeline walkthrough -->
+          <div style="margin: 20px 0; border-radius: 6px; overflow: hidden; background: #000;">
+            <img src="assets/img/Projects/laser_cotton_separation.gif"
+                 alt="Three steps: a pair of jeans on the laser bed, the segmentation masks over the cotton regions, and the blob contours that become cutting paths"
+                 style="width: 100%; display: block; margin: 0; border: 0; border-radius: 0;">
+          </div>
+
+          <div class="post-content">
+
+            <div class="tech-chips">
+              <span class="tech-chip">Semantic Segmentation</span>
+              <span class="tech-chip">Custom Dataset</span>
+              <span class="tech-chip">Blob Analysis</span>
+              <span class="tech-chip">Edge Detection</span>
+              <span class="tech-chip">G-code Generation</span>
+              <span class="tech-chip">Laser Cutting</span>
+              <span class="tech-chip">Textile Recycling</span>
+            </div>
+
+            <h2 id="Problem-Statement">Problem Statement</h2>
+            <p>
+              Recycling denim and other cotton garments only works on the pure cotton. A pair of jeans is not one
+              material: it carries a zip, rivets and buttons, polyester panels and labels, and — easy to overlook —
+              the sewing thread holding it together, which is usually not cotton either. All of it has to come out
+              before the cotton can go into its own recycling stream.
+            </p>
+            <p>
+              That separation used to be done by hand. Someone looks at each garment, decides which areas are usable
+              cotton, and cuts them out — slow, tiring work whose consistency depends entirely on the person doing
+              it, and a bottleneck in an otherwise automated recycling line.
+            </p>
+
+            <h2 id="Approach">Approach</h2>
+            <p>
+              We built a laser cutting machine that performs the separation itself, and the vision system that tells
+              it where to cut. A camera above the bed sees the garment as it is laid down; everything after that is
+              automatic, ending in cutting paths the machine can execute.
+            </p>
+            <p>
+              The core of it is a segmentation model trained on our own data. Off-the-shelf models have no notion of
+              "the part of this garment that is pure cotton" — that judgement is specific to the material, the
+              construction of the garment and what the recycler will accept, so the training data had to come from
+              the line itself. The model returns the cotton-only regions as blobs; their boundaries, not the pixels,
+              are what the laser needs.
+            </p>
+
+            <div class="note-box">
+              🎯 <strong>Design goal:</strong> keep the cotton, and only the cotton. A cut that strays into a
+              polyester panel or a seam contaminates the batch; a cut that is too cautious throws away good material.
+            </div>
+
+            <h2 id="Pipeline">From Frame to Cutting Path</h2>
+
+            <div class="pipeline">
+              <div class="pipe-step">Capture<span>garment on the bed</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Segment<span>custom model, own data</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Blobs<span>cotton-only regions</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Edges<span>blob boundaries</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">G-code<span>cutting paths</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Cut<span>laser</span></div>
+            </div>
+
+            <p>
+              The three stages are easiest to read as images. First the raw frame — two pairs of jeans on the bed,
+              seams, zips and all:
+            </p>
+            <img src="assets/img/Projects/a1.jpg" alt="Two pairs of jeans laid flat on the laser cutter bed">
+
+            <p>
+              Then the segmentation output. The filled regions are what the model considers recyclable cotton; the
+              waistband, fly, zip and pocket hardware are deliberately left outside them:
+            </p>
+            <img src="assets/img/Projects/a2.jpg" alt="The same frame with the predicted cotton regions filled in as coloured masks">
+
+            <p>
+              Finally the part the machine actually consumes: each blob reduced to its boundary. These contours are
+              converted to G-code and streamed to the cutter, which follows them to lift the cotton out of the
+              garment.
+            </p>
+            <img src="assets/img/Projects/a3.jpg" alt="The blob boundaries alone, as closed contours on a plain background">
+
+            <h2 id="Solution">What the System Delivers</h2>
+            <ol>
+              <li>
+                <strong>A cotton-only segmentation model.</strong> Trained on data collected from the line, so it
+                learns the distinction that matters to the recycler rather than a generic garment/background split.
+              </li>
+              <li>
+                <strong>Blobs instead of loose pixels.</strong> Predictions are resolved into discrete regions, which
+                is what makes the output cuttable: a blob is a shape the laser can go around, a pixel mask is not.
+              </li>
+              <li>
+                <strong>Boundaries as machine instructions.</strong> Edge detection over the blobs produces closed
+                contours, and those contours are emitted as G-code — the output of the vision system is a program the
+                cutter runs, with no operator in between.
+              </li>
+              <li>
+                <strong>An automated version of a manual job.</strong> The same garment produces the same cuts every
+                time, and the decision no longer depends on whoever is at the table.
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+      <!-- // Main Content -->
+
+      <!-- Sidebar -->
+      <div class="sidebar single">
+
+        <div class="section topics">
+          <h2 class="section-title">Contents</h2>
+          <ul>
+            <li><a href="#Problem-Statement">Problem Statement</a></li>
+            <li><a href="#Approach">Approach</a></li>
+            <li><a href="#Pipeline">From Frame to Cutting Path</a></li>
+            <li><a href="#Solution">What the System Delivers</a></li>
+          </ul>
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Other Projects</h2>
+          <ul>
+            <li><a href="ManufacturingProcessMonitoring.html">Manufacturing Process Monitoring</a></li>
+            <li><a href="InventoryMonitoring.html">SKU-Agnostic Inventory Monitoring</a></li>
+            <li><a href="AITutor.html">AI Tutor — Vision-Aware RAG</a></li>
+            <li><a href="ExerciseRepDetection.html">Exercise Rep Detection</a></li>
+            <li><a href="VirtualTryOn.html">Virtual Try On</a></li>
+            <li><a href="ANPR.html">ANPR — Number Plate Recognition</a></li>
+            <li><a href="MobileRoboticArm.html">Mobile Robotic Arm</a></li>
+            <li><a href="SingleExtruder3DPrinter.html">3D Printer & Filament Extruder</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- // Sidebar -->
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>

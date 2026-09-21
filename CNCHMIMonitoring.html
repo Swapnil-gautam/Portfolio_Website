@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', serif;
+      color: #333;
+      background: #f4f4f4;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1a1a2e;
+      padding: 12px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .logo-text {
+      font-family: 'Candal', sans-serif;
+      color: #e0e0e0;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    .nav { list-style: none; display: flex; gap: 20px; }
+    .nav a { color: #ccc; text-decoration: none; font-family: 'Candal', sans-serif; font-size: 0.85rem; }
+    .nav a:hover { color: #00d4aa; }
+    .menu-toggle { color: #ccc; font-size: 1.2rem; display: none; cursor: pointer; }
+
+    /* Page wrapper */
+    .page-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+    .content.clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Main content */
+    .main-content-wrapper { float: left; width: 70%; padding-right: 30px; }
+    .main-content { background: #fff; padding: 30px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+    .post-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.8rem;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+      border-left: 5px solid #00d4aa;
+      padding-left: 14px;
+      line-height: 1.3;
+    }
+
+    .post-content h2 {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.15rem;
+      color: #1a1a2e;
+      margin: 28px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #00d4aa;
+      display: inline-block;
+    }
+
+    .post-content p {
+      line-height: 1.8;
+      margin-bottom: 14px;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content ol, .post-content ul {
+      margin: 12px 0 16px 22px;
+      line-height: 1.9;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content img {
+      max-width: 100%;
+      border-radius: 4px;
+      margin: 14px 0;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Pipeline visual */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 22px 0;
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 18px 14px;
+    }
+    .pipe-step {
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      font-family: 'Candal', sans-serif;
+      text-align: center;
+      min-width: 130px;
+      line-height: 1.4;
+    }
+    .pipe-step span {
+      display: block;
+      font-size: 0.68rem;
+      color: #00d4aa;
+      margin-top: 3px;
+      font-family: 'Lora', serif;
+    }
+    .pipe-arrow {
+      font-size: 1.3rem;
+      color: #00d4aa;
+      padding: 0 6px;
+      font-weight: bold;
+    }
+
+    /* Tech stack chips */
+    .tech-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+    .tech-chip {
+      background: #1a1a2e;
+      color: #00d4aa;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-family: 'Candal', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Sidebar */
+    .sidebar { float: right; width: 28%; }
+    .section { background: #fff; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 24px; }
+    .section-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1rem;
+      color: #1a1a2e;
+      border-bottom: 3px solid #00d4aa;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+    .section.topics ul { list-style: none; padding: 0; }
+    .section.topics ul li { border-bottom: 1px solid #f0f0f0; padding: 7px 0; }
+    .section.topics ul li a { text-decoration: none; color: #444; font-size: 0.88rem; }
+    .section.topics ul li a:hover { color: #00d4aa; }
+
+    .repo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'Candal', sans-serif;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .repo-btn:hover { background: #00d4aa; color: #1a1a2e; }
+
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Note box */
+    .note-box {
+      background: #eafaf6;
+      border-left: 4px solid #00d4aa;
+      padding: 12px 16px;
+      border-radius: 0 4px 4px 0;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: #2d6a5a;
+    }
+
+    @media (max-width: 768px) {
+      .main-content-wrapper, .sidebar { float: none; width: 100%; padding: 0; margin-bottom: 20px; }
+      .menu-toggle { display: block; }
+      .nav { display: none; }
+    }
+  </style>
+
+  <title>CNC HMI Monitoring — Getting Data Out of Machines That Have No API</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <h1 class="logo-text">Swapnil Gautam</h1>
+    </div>
+    <i class="fa fa-bars menu-toggle"></i>
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="content clearfix">
+
+      <!-- Main Content -->
+      <div class="main-content-wrapper">
+        <div class="main-content single">
+          <h1 class="post-title">CNC HMI Monitoring — Getting Data Out of Machines That Have No API</h1>
+
+          <!-- Pipeline walkthrough -->
+          <div style="margin: 20px 0; border-radius: 6px; overflow: hidden; background: #000;">
+            <img src="assets/img/Projects/cnc_hmi_ocr.gif"
+                 alt="Four steps: a camera mounted over the CNC panel, the HMI screen cropped out, its perspective corrected, and OCR reading the values"
+                 style="width: 100%; display: block; margin: 0; border: 0; border-radius: 0;">
+          </div>
+
+          <div class="post-content">
+
+            <div class="tech-chips">
+              <span class="tech-chip">PaddleOCR</span>
+              <span class="tech-chip">Perspective Correction</span>
+              <span class="tech-chip">Jetson Orin Nano</span>
+              <span class="tech-chip">Edge Deployment</span>
+              <span class="tech-chip">MQTT</span>
+              <span class="tech-chip">Legacy Equipment</span>
+            </div>
+
+            <h2 id="Problem-Statement">Problem Statement</h2>
+            <p>
+              A modern CNC will tell you what it is doing. It publishes to an API, speaks a protocol like MTConnect
+              or OPC UA, and a monitoring system can simply subscribe. A great deal of the machinery actually running
+              in factories does none of that. It was installed before anyone expected a machine to be networked, its
+              controller has no outward interface at all, and there is no endpoint to connect to — the data exists,
+              but it exists only on the screen in front of the operator.
+            </p>
+            <p>
+              These are usually the machines you least want to be blind about. They are old, they are heavily used,
+              and they are exactly the ones whose downtime nobody can account for at the end of a shift. Replacing
+              them to gain visibility is absurd; retrofitting the controller is invasive, vendor-specific, and often
+              impossible.
+            </p>
+            <p>
+              At Conduit I took the other route. If the machine will not publish its state, read the screen it
+              already shows.
+            </p>
+
+            <div class="note-box">
+              🎯 <strong>The idea:</strong> the HMI panel is already a complete, live readout of the machine. A
+              camera turns it into an API that the machine never had — without touching the controller, the wiring,
+              or the vendor.
+            </div>
+
+            <h2 id="Approach">Approach</h2>
+            <p>
+              A camera is mounted above the operator panel, looking down at the HMI. That mounting position is a
+              compromise: it has to see the screen without blocking the operator or catching the overhead lights, so
+              the camera ends up off-axis and the screen arrives in the frame as a trapezoid rather than a rectangle.
+              Everything downstream has to cope with that.
+            </p>
+            <p>
+              The pipeline is deliberately simple and ordered so that each stage makes the next one easier: find the
+              screen, flatten it, read it, parse it, ship it.
+            </p>
+
+            <h2 id="Pipeline">From Panel to Server</h2>
+
+            <div class="pipeline">
+              <div class="pipe-step">Camera<span>above the panel</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Crop<span>locate the HMI region</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Deskew<span>perspective correction</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">OCR<span>fine-tuned PaddleOCR</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Parse<span>fields and values</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">MQTT<span>to the server</span></div>
+            </div>
+
+            <h2 id="Deskew">Why Perspective Correction Comes First</h2>
+            <p>
+              OCR assumes text sits on horizontal lines. Photographed off-axis, an HMI gives it neither: rows slope,
+              characters shear, and the glyphs at the far edge of the screen are compressed into fewer pixels than
+              the ones nearby. Recognition accuracy falls off exactly where the screen is most distorted.
+            </p>
+            <p>
+              So the screen region is located, its four corners are found, and the quad is warped back to a
+              rectangle before a single character is read. The difference is visible — this is the same panel, first
+              as the camera sees it and then flattened:
+            </p>
+            <img src="assets/img/Projects/s2_screen.jpg" alt="The CNC HMI screen after cropping and perspective correction, with rows of text now horizontal">
+            <p>
+              After flattening, the title bar, the field labels and the coordinate table all sit on straight
+              horizontal lines, and every part of the screen is at a comparable scale. That is the input OCR was
+              designed for.
+            </p>
+
+            <h2 id="OCR">Reading the Panel</h2>
+            <p>
+              With a flattened screen, text detection and recognition run over the whole panel and the results are
+              parsed into fields: machine status, active program, tool number, feed and spindle percentages,
+              coordinates, alarm text. What leaves the device is those values — small structured messages published
+              over MQTT — not video, which keeps bandwidth negligible and the imagery inside the plant.
+            </p>
+            <img src="assets/img/Projects/s2_ocr.jpg" alt="The flattened HMI screen with every detected text region boxed, beside the text the recogniser read from each box">
+            <p>
+              The illustration above is a run with <em>stock</em> PP-OCR models, and it shows why the production
+              system does not use them unmodified. The large, high-contrast content comes through cleanly — the
+              coordinate table, the feed and spindle percentages, the headline labels. The small status text does
+              not: <code>MODE</code> is read as <code>MODC</code>, <code>STATUS</code> as <code>STATUE</code>,
+              <code>CYCLE RUN</code> as <code>CYOLRUN</code>. Those are precisely the fields that say why a machine
+              is stopped, which is why PaddleOCR was fine-tuned on HMI screens rather than used off the shelf.
+            </p>
+
+            <h2 id="Solution">What the System Delivers</h2>
+            <ol>
+              <li>
+                <strong>Telemetry from machines with no interface.</strong> No controller retrofit, no vendor API, no
+                rewiring — a camera and an edge device beside the machine.
+              </li>
+              <li>
+                <strong>Robust to how the camera has to be mounted.</strong> Perspective correction means the camera
+                can go where it fits on the panel rather than where OCR would prefer it.
+              </li>
+              <li>
+                <strong>Structured fields, not screenshots.</strong> The panel is parsed into named values, so the
+                data is usable for utilization and downtime attribution instead of being an image someone has to look at.
+              </li>
+              <li>
+                <strong>Small, local, real-time.</strong> Inference runs on a Jetson Orin Nano at the machine and only
+                parsed values travel, published over MQTT into the systems the plant already runs.
+              </li>
+              <li>
+                <strong>Old machines join the same dashboard as new ones.</strong> Once the panel is readable, a
+                1990s controller reports the same fields as a networked machine.
+              </li>
+            </ol>
+
+            <p style="margin-top: 22px;">
+              This sits inside the wider monitoring work at Conduit, where camera-based machine-state classification
+              provides the other half of the picture:
+              <a href="ManufacturingProcessMonitoring.html" style="color: #1a1a2e; font-weight: bold;">Manufacturing
+              Process Monitoring &#8594;</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+      <!-- // Main Content -->
+
+      <!-- Sidebar -->
+      <div class="sidebar single">
+
+        <div class="section">
+          <h2 class="section-title">Built At</h2>
+          <p style="font-size: 0.9rem; line-height: 1.7; color: #444;">
+            <a href="https://conduit.inc/" target="_blank" rel="noopener noreferrer"
+               style="color: #1a1a2e; font-weight: bold; text-decoration: none;">Conduit</a><br>
+            San Francisco, California<br>
+            Machine Learning Engineer
+          </p>
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Contents</h2>
+          <ul>
+            <li><a href="#Problem-Statement">Problem Statement</a></li>
+            <li><a href="#Approach">Approach</a></li>
+            <li><a href="#Pipeline">From Panel to Server</a></li>
+            <li><a href="#Deskew">Why Perspective Correction Comes First</a></li>
+            <li><a href="#OCR">Reading the Panel</a></li>
+            <li><a href="#Solution">What the System Delivers</a></li>
+          </ul>
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Other Projects</h2>
+          <ul>
+            <li><a href="ManufacturingProcessMonitoring.html">Manufacturing Process Monitoring</a></li>
+            <li><a href="InventoryMonitoring.html">SKU-Agnostic Inventory Monitoring</a></li>
+            <li><a href="LaserCottonSeparation.html">Laser Cutting — Cotton Separation</a></li>
+            <li><a href="AITutor.html">AI Tutor — Vision-Aware RAG</a></li>
+            <li><a href="ExerciseRepDetection.html">Exercise Rep Detection</a></li>
+            <li><a href="VirtualTryOn.html">Virtual Try On</a></li>
+            <li><a href="ANPR.html">ANPR — Number Plate Recognition</a></li>
+            <li><a href="MobileRoboticArm.html">Mobile Robotic Arm</a></li>
+            <li><a href="SingleExtruder3DPrinter.html">3D Printer & Filament Extruder</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- // Sidebar -->
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>

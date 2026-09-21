@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', serif;
+      color: #333;
+      background: #f4f4f4;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1a1a2e;
+      padding: 12px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .logo-text {
+      font-family: 'Candal', sans-serif;
+      color: #e0e0e0;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    .nav { list-style: none; display: flex; gap: 20px; }
+    .nav a { color: #ccc; text-decoration: none; font-family: 'Candal', sans-serif; font-size: 0.85rem; }
+    .nav a:hover { color: #00d4aa; }
+    .menu-toggle { color: #ccc; font-size: 1.2rem; display: none; cursor: pointer; }
+
+    /* Page wrapper */
+    .page-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+    .content.clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Main content */
+    .main-content-wrapper { float: left; width: 70%; padding-right: 30px; }
+    .main-content { background: #fff; padding: 30px; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+    .post-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.8rem;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+      border-left: 5px solid #00d4aa;
+      padding-left: 14px;
+      line-height: 1.3;
+    }
+
+    .post-content h2 {
+      font-family: 'Candal', sans-serif;
+      font-size: 1.15rem;
+      color: #1a1a2e;
+      margin: 28px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #00d4aa;
+      display: inline-block;
+    }
+
+    .post-content p {
+      line-height: 1.8;
+      margin-bottom: 14px;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content ol, .post-content ul {
+      margin: 12px 0 16px 22px;
+      line-height: 1.9;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    .post-content img {
+      max-width: 100%;
+      border-radius: 4px;
+      margin: 14px 0;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Pipeline visual */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 22px 0;
+      background: #f8f8f8;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 18px 14px;
+    }
+    .pipe-step {
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      font-family: 'Candal', sans-serif;
+      text-align: center;
+      min-width: 130px;
+      line-height: 1.4;
+    }
+    .pipe-step span {
+      display: block;
+      font-size: 0.68rem;
+      color: #00d4aa;
+      margin-top: 3px;
+      font-family: 'Lora', serif;
+    }
+    .pipe-arrow {
+      font-size: 1.3rem;
+      color: #00d4aa;
+      padding: 0 6px;
+      font-weight: bold;
+    }
+
+    /* Tech stack chips */
+    .tech-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+    .tech-chip {
+      background: #1a1a2e;
+      color: #00d4aa;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-family: 'Candal', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Sidebar */
+    .sidebar { float: right; width: 28%; }
+    .section { background: #fff; border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 24px; }
+    .section-title {
+      font-family: 'Candal', sans-serif;
+      font-size: 1rem;
+      color: #1a1a2e;
+      border-bottom: 3px solid #00d4aa;
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+    .section.topics ul { list-style: none; padding: 0; }
+    .section.topics ul li { border-bottom: 1px solid #f0f0f0; padding: 7px 0; }
+    .section.topics ul li a { text-decoration: none; color: #444; font-size: 0.88rem; }
+    .section.topics ul li a:hover { color: #00d4aa; }
+
+    .repo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'Candal', sans-serif;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .repo-btn:hover { background: #00d4aa; color: #1a1a2e; }
+
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* Note box */
+    .note-box {
+      background: #eafaf6;
+      border-left: 4px solid #00d4aa;
+      padding: 12px 16px;
+      border-radius: 0 4px 4px 0;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: #2d6a5a;
+    }
+
+    @media (max-width: 768px) {
+      .main-content-wrapper, .sidebar { float: none; width: 100%; padding: 0; margin-bottom: 20px; }
+      .menu-toggle { display: block; }
+      .nav { display: none; }
+    }
+  </style>
+
+  <title>Manufacturing Process Monitoring — Computer Vision for OEE</title>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <h1 class="logo-text">Swapnil Gautam</h1>
+    </div>
+    <i class="fa fa-bars menu-toggle"></i>
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="content clearfix">
+
+      <!-- Main Content -->
+      <div class="main-content-wrapper">
+        <div class="main-content single">
+          <h1 class="post-title">Manufacturing Process Monitoring — Computer Vision for OEE</h1>
+
+          <!-- Demo Video -->
+          <div style="margin: 20px 0; border-radius: 6px; overflow: hidden; background: #000;">
+            <video controls autoplay muted loop playsinline style="width: 100%; display: block; max-height: 460px;">
+              <source src="assets/vid/gif/ProcessMonitoring.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <div class="post-content">
+
+            <div class="tech-chips">
+              <span class="tech-chip">YOLOv12</span>
+              <span class="tech-chip">PaddleOCR</span>
+              <span class="tech-chip">Jetson Orin Nano</span>
+              <span class="tech-chip">MQTT</span>
+              <span class="tech-chip">OEE</span>
+              <span class="tech-chip">Model Benchmarking</span>
+            </div>
+
+            <h2 id="Problem-Statement">Problem Statement</h2>
+            <p>
+              Overall Equipment Effectiveness is the number a factory floor runs on, and computing it honestly needs
+              something most shops do not have: a continuous, trustworthy record of what every machine was doing,
+              minute by minute. Was it cutting? Idle and waiting for an operator? Mid tool-change? Being cleaned down
+              between jobs?
+            </p>
+            <p>
+              The usual answers are all unsatisfying. Operators fill in logs by hand, which is retrospective and
+              optimistic. Machine controllers can report state directly, but only if they are new enough and
+              networked — and on a real floor, a fleet is a mix of vintages, vendors and controllers, many of which
+              expose nothing at all. Replacing those machines to gain visibility is not an option.
+            </p>
+
+            <h2 id="Approach">Approach</h2>
+            <p>
+              At Conduit I built the monitoring system around what every machine does expose, regardless of age: its
+              appearance and its screen. A camera watches the machine, a vision model classifies what state it is in,
+              and a second model reads the text on the HMI panel. Nothing is retrofitted into the controller and
+              nothing depends on the vendor opening up an API.
+            </p>
+            <p>
+              State classification runs on YOLOv12, chosen after benchmarking alternatives across the full set of
+              machine states. The distinction that matters is not running versus stopped — it is telling apart the
+              several different reasons a machine is not cutting, because they land in different places in an OEE
+              calculation. A tool change is planned; an idle machine waiting on an operator is not. Getting those
+              boundaries right is what moved monitoring accuracy up by 45 percent over the previous approach.
+            </p>
+
+            <h2 id="States">The States the Model Separates</h2>
+            <ul>
+              <li><strong>Cutting</strong> — the productive state everything else is measured against.</li>
+              <li><strong>Idle</strong> — powered and available, but nothing is happening.</li>
+              <li><strong>Tool change</strong> — planned downtime, and it should not be counted like an unplanned stop.</li>
+              <li><strong>Loading parts</strong> — setup at the start of a job.</li>
+              <li><strong>Removing parts</strong> — teardown at the end of one.</li>
+              <li><strong>Bed cleaning</strong> — chip and swarf clearing between jobs.</li>
+            </ul>
+            <p>
+              Separating loading, removing and cleaning matters because together they are where a surprising amount of
+              the day goes. Rolled up as a single "stopped" bucket they look like one loss; separated, they are three
+              different problems with three different fixes.
+            </p>
+
+            <h2 id="HMI">Reading the HMI Panel</h2>
+            <p>
+              The HMI carries information that is invisible from the outside: the active program, alarm codes, cycle
+              counts. I fine-tuned PaddleOCR for those screens specifically, because general-purpose OCR does poorly
+              on HMI typography, fixed-width status fields, glare and low-contrast industrial displays. With the panel
+              read as structured text, a stoppage can be attributed rather than merely counted.
+              The camera-to-server pipeline behind this — cropping the screen, correcting its perspective and
+              parsing the fields — has its own write-up:
+              <a href="CNCHMIMonitoring.html" style="color: #1a1a2e; font-weight: bold;">CNC HMI Monitoring &#8594;</a>
+            </p>
+
+            <h2 id="Pipeline">From Camera to Dashboard</h2>
+
+            <div class="pipeline">
+              <div class="pipe-step">Camera<span>one or more machines</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">State Model<span>YOLOv12, 6 states</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">HMI OCR<span>fine-tuned PaddleOCR</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">Jetson Orin Nano<span>inference on site</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">MQTT<span>real-time ingestion</span></div>
+              <div class="pipe-arrow">&#8594;</div>
+              <div class="pipe-step">OEE<span>utilization metrics</span></div>
+            </div>
+
+            <p>
+              Inference runs on a Jetson Orin Nano at the machines rather than on a central server. That keeps video
+              local — only small state messages leave the device — and it means the line keeps being measured even
+              when the network does not cooperate. Those messages are published over MQTT, which the plant already
+              speaks, so utilization data lands in existing dashboards instead of a parallel system nobody checks.
+            </p>
+            <p>
+              The default layout is a camera per machine, which gives the cleanest view of the work area and the
+              panel. Where machines sit close together, a single camera can cover several at once and the frame is
+              split per machine — fewer devices to mount and maintain, at the cost of angle and resolution on each.
+            </p>
+
+            <h2 id="Solution">What the System Delivers</h2>
+            <ol>
+              <li>
+                <strong>86.7% OEE, measured rather than estimated.</strong> Utilization comes from what the cameras
+                actually observed, not from hand-written logs reconstructed at the end of a shift.
+              </li>
+              <li>
+                <strong>45% better monitoring accuracy.</strong> The gain came from benchmarking state models and
+                picking the one that held up on the harder, in-between conditions.
+              </li>
+              <li>
+                <strong>Downtime with a reason attached.</strong> Six states plus OCR on the panel turn a flat stop
+                into an attributable event.
+              </li>
+              <li>
+                <strong>Works on machines that expose nothing.</strong> Because the system observes from the outside,
+                the same deployment covers old and new equipment alike.
+              </li>
+              <li>
+                <strong>Real-time and local.</strong> Edge inference on the Jetson with MQTT ingestion keeps latency
+                low, bandwidth small, and video inside the plant.
+              </li>
+            </ol>
+
+          </div>
+        </div>
+      </div>
+      <!-- // Main Content -->
+
+      <!-- Sidebar -->
+      <div class="sidebar single">
+
+        <div class="section">
+          <h2 class="section-title">Built At</h2>
+          <p style="font-size: 0.9rem; line-height: 1.7; color: #444;">
+            <a href="https://conduit.inc/" target="_blank" rel="noopener noreferrer"
+               style="color: #1a1a2e; font-weight: bold; text-decoration: none;">Conduit</a><br>
+            San Francisco, California<br>
+            Machine Learning Engineer
+          </p>
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Contents</h2>
+          <ul>
+            <li><a href="#Problem-Statement">Problem Statement</a></li>
+            <li><a href="#Approach">Approach</a></li>
+            <li><a href="#States">The States the Model Separates</a></li>
+            <li><a href="#HMI">Reading the HMI Panel</a></li>
+            <li><a href="#Pipeline">From Camera to Dashboard</a></li>
+            <li><a href="#Solution">What the System Delivers</a></li>
+          </ul>
+        </div>
+
+        <div class="section topics">
+          <h2 class="section-title">Other Projects</h2>
+          <ul>
+            <li><a href="InventoryMonitoring.html">SKU-Agnostic Inventory Monitoring</a></li>
+            <li><a href="LaserCottonSeparation.html">Laser Cutting — Cotton Separation</a></li>
+            <li><a href="AITutor.html">AI Tutor — Vision-Aware RAG</a></li>
+            <li><a href="ExerciseRepDetection.html">Exercise Rep Detection</a></li>
+            <li><a href="VirtualTryOn.html">Virtual Try On</a></li>
+            <li><a href="ANPR.html">ANPR — Number Plate Recognition</a></li>
+            <li><a href="MobileRoboticArm.html">Mobile Robotic Arm</a></li>
+            <li><a href="SingleExtruder3DPrinter.html">3D Printer & Filament Extruder</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- // Sidebar -->
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>
