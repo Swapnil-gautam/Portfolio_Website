@@ -200,6 +200,14 @@ window.SITE = {
       caseStudy: "../VGGTSlamApartment.html"
     },
     {
+      title: "Robot-Tended CNC Cell — Shelf Bracket",
+      category: "Robotics",
+      description:
+        "Simulated work cell for a shelf bracket: the arm picks raw stock, loads it into the CNC, the router cuts the part, then the arm lifts the finished bracket clear and clears the offcut to the waste bin. Overview camera with the top-down view inset.",
+      media: { type: "video", src: "../assets/vid/gif/ShelfBracketCell.mp4" },
+      tags: ["Simulation", "Robot Arm", "CNC", "Pick & Place"]
+    },
+    {
       title: "Dynamic Pricing for Airbnb Listings",
       category: "Machine Learning",
       description:
