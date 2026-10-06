@@ -169,11 +169,11 @@ window.SITE = {
       description:
         "Computer vision system tracking CNC machine states and reading HMI screen text on edge devices, streaming utilization data over MQTT to lift OEE to 86.7%.",
       media: { type: "video", src: "../assets/vid/gif/ProcessMonitoring.mp4" },
-      tags: ["YOLOv12", "PaddleOCR", "Jetson Orin Nano", "MQTT"],
+      tags: ["YOLOv12", "Jetson Orin Nano", "MQTT"],
       caseStudy: "../ManufacturingProcessMonitoring.html"
     },
     {
-      title: "CNC HMI Monitoring — Camera as the Missing API",
+      title: "CNC HMI Monitoring using OCR",
       category: "Machine Learning",
       description:
         "Telemetry from legacy CNCs that publish nothing and have no API. A camera over the operator panel crops the HMI screen, corrects its perspective, and OCR parses the fields into structured values published over MQTT.",
@@ -206,14 +206,6 @@ window.SITE = {
         "Simulated work cell for a shelf bracket: the arm picks raw stock, loads it into the CNC, the router cuts the part, then the arm lifts the finished bracket clear and clears the offcut to the waste bin. Overview camera with the top-down view inset.",
       media: { type: "video", src: "../assets/vid/gif/ShelfBracketCell.mp4" },
       tags: ["Simulation", "Robot Arm", "CNC", "Pick & Place"]
-    },
-    {
-      title: "Dynamic Pricing for Airbnb Listings",
-      category: "Machine Learning",
-      description:
-        "Pricing engine that re-scores every listing nightly instead of leaving a flat rate in place. It estimates booking probability at each candidate price from lead time, day of week, local events, the competitor set and seasonality, then picks the price that maximises expected revenue.",
-      media: { type: "image", src: "../assets/img/Projects/dynamic_pricing_dashboard.jpg" },
-      tags: ["Demand Forecasting", "Price Optimisation", "Time Series", "Dashboard"]
     },
     {
       title: "Laser Cutting — Cotton Separation",
