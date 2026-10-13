@@ -200,6 +200,14 @@ window.SITE = {
       caseStudy: "../VGGTSlamApartment.html"
     },
     {
+      title: "RoboDrum — Robot Arm Drummer",
+      category: "Robotics",
+      description:
+        "A robotic arm that plays drums. Each hit is placed in Cartesian space over the pads, inverse kinematics turns it into joint angles, and the trajectory is timed to land on the beat: a fast strike down to the pad, then a rebound back to a ready pose before the next note.",
+      media: { type: "video", src: "../assets/vid/gif/RobotDrum.mp4" },
+      tags: ["Inverse Kinematics", "Trajectory Planning", "Robot Arm", "Motion Timing"]
+    },
+    {
       title: "Robot-Tended CNC Cell — Shelf Bracket",
       category: "Robotics",
       description:
