@@ -216,6 +216,15 @@ window.SITE = {
       tags: ["Simulation", "Robot Arm", "CNC", "Pick & Place"]
     },
     {
+      title: "Portal Ball — Virtual Pickleball",
+      category: "Machine Learning",
+      description:
+        "Browser pickleball played with your hand as the paddle. MediaPipe hand tracking runs live on the webcam: swing speed sets power and palm tilt aims the shot, in a Three.js court. Practice against an AI opponent or play a friend anywhere over WebRTC.",
+      media: { type: "video", src: "../assets/vid/gif/VirtualPickleBall.mp4" },
+      tags: ["MediaPipe Hand Tracking", "Game", "JavaScript", "Three.js", "WebRTC"],
+      demo: { url: "https://swapnil-gautam.github.io/portal-ball/game.html", label: "Play the game" }
+    },
+    {
       title: "Laser Cutting — Cotton Separation",
       category: "Machine Learning",
       description:
@@ -309,6 +318,7 @@ window.SITE = {
       skills: [
         "YOLO",
         "MediaPipe",
+        "Hand Tracking",
         "PaddleOCR",
         "OpenCV",
         "Segmentation",
@@ -334,7 +344,7 @@ window.SITE = {
     {
       category: "Languages & Data",
       color: "#3b82f6",
-      skills: ["Python", "C++", "SQL", "NumPy", "Pandas", "MongoDB", "Firebase"]
+      skills: ["Python", "C++", "JavaScript", "SQL", "NumPy", "Pandas", "MongoDB", "Firebase"]
     },
     {
       category: "Deployment & MLOps",
@@ -353,7 +363,7 @@ window.SITE = {
     {
       category: "Robotics & Hardware",
       color: "#f43f5e",
-      skills: ["ROS", "Kinematics", "Raspberry Pi", "Arduino", "Fusion 360", "Mechatronics"]
+      skills: ["ROS", "Kinematics", "Raspberry Pi", "Arduino", "Fusion 360", "Mechatronics", "Game Development"]
     }
   ]
 };

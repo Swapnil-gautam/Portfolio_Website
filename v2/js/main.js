@@ -437,10 +437,18 @@
       tags += '<span class="badge">+' + (project.tags.length - 3) + "</span>";
     }
 
-    var actions = project.caseStudy
-      ? '<a class="btn btn--outline btn--sm" href="' + esc(project.caseStudy) + '">' +
-        icon("externalLink") + "Case study</a>"
-      : "";
+    var actions = "";
+    if (project.demo) {
+      actions +=
+        '<a class="btn btn--primary btn--sm" href="' + esc(project.demo.url) +
+        '" target="_blank" rel="noopener noreferrer">' + icon("externalLink") +
+        esc(project.demo.label || "Live demo") + "</a>";
+    }
+    if (project.caseStudy) {
+      actions +=
+        '<a class="btn btn--outline btn--sm" href="' + esc(project.caseStudy) + '">' +
+        icon("externalLink") + "Case study</a>";
+    }
 
     return (
       '<article class="project-card" data-category="' + esc(project.category) + '"' +
